@@ -10,7 +10,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-		"mpf-soft/mpf" => "*"
+		"mpf-soft/mpf" : "*"
     },
     "autoload" : {
 		"psr-4" : {
