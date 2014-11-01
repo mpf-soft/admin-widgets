@@ -1,0 +1,13 @@
+{
+    "name": "mpf-soft/admin-widgets",
+    "description": "Basic widgets used by Admin module from base-app",
+    "license": "Apache License",
+    "authors": [
+        {
+            "name": "Mirel Mitache",
+            "email": "mitache.mirel@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

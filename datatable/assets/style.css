@@ -1,0 +1,224 @@
+/* === STRUCTURE OPTIONS === */
+
+.m-datatable{
+    display:block;
+    float:left;
+    width:98%;
+    margin-left:1%;
+}
+
+.m-datatable a{
+    text-decoration:none;
+    margin:0;
+    padding:0;
+}
+
+.m-datatable-view-options{
+    display:block;
+    float:left;
+    width:100%;
+}
+
+.m-datatable table{
+    width:100%;
+    border-collapse: collapse;
+    border:0;
+    margin:0;
+    padding:0;
+}
+
+/* ===       THEMES      === */
+
+/*      Theme: Default       */
+
+.m-datatable-default{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.m-datatable-default table{
+    box-shadow: 0px 0px 2px #7f7f7f;
+}
+
+.m-datatable-default *{
+    font-family: Arial;
+    font-size: 11px;
+}
+
+.m-datatable-default table{
+    background:#fff;
+    vertical-align: middle;
+}
+
+.m-datatable-default table td, .m-datatable-default table th{
+    vertical-align: middle;
+}
+
+.m-datatable-default table th{
+    line-height:24px;
+    background:#dedede;
+    text-allign:center;
+    padding:0;
+    font-size: 10px;
+    border-right: 1px solid #fff;
+    margin:0;
+    text-align: center;
+}
+
+.m-datatable-default table th a{
+    float:none;
+    color: #1d5987;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.m-datatable-default table th a:hover{
+    text-decoration:underline;
+}
+
+.m-datatable-default table th:last-child{
+    border:none;
+}
+
+.m-datatable-default table tr.m-datatable-filters td{
+    border-right: 1px solid #dfdfdf;
+    text-align:center;
+    padding:3px 0px;
+}
+
+.m-datatable-default table tr.m-datatable-filters td:last-child{
+    border:none;
+}
+
+.m-datatable-default table tr.m-datatable-filters td input{
+    width:90%;
+}
+
+.m-datatable-default table tr.m-datatable-row td{
+    padding:0 !important;
+    margin:0;
+    line-height:20px;
+    background: #efefef;
+    text-align: center;
+    border-right: 1px solid #fff;
+    color:#3f3f3f;
+}
+
+.m-datatable-default table tr.m-datatable-noitems td{
+    text-align: center;
+    color:#4c4c4c;
+    font-style: italic;
+    line-height: 30px;
+    border-top: 1px solid #dfdfdf;
+}
+
+.m-datatable-default table tr.m-datatable-row:nth-child(2n) td{
+    background: #fff;
+    border-right: 1px solid #dfdfdf;
+}
+
+.m-datatable-default table tr.m-datatable-row td:last-child, .m-datatable-default table tr.m-datatable-row:nth-child(2n) td:last-child{
+    border:none;
+}
+
+.m-datatable-default table tr.m-datatable-row:hover td{
+    color:#222;
+    text-shadow: 0px 0px 2px #afafaf;
+}
+
+.m-datatable-default table tr.selected td, .m-datatable-default table tr.selected:nth-child(2n) td{
+    background: #cecede;
+}
+
+.m-datatable-default table a{
+    float:left;
+    margin-right: 2px;
+    margin-left:2px;
+}
+
+.m-datatable-default table img{
+    max-height: 16px;
+    margin-top: 3px;
+}
+
+.m-datatable-default .m-datatable-view-options{
+    display:block;
+    float:right;
+    width: auto;
+    height:24px;
+    margin:10px 5px;
+    background:#dfdfdf;
+    border-radius: 5px;
+    color: #4c4c4c;
+    line-height: 24px;
+    box-shadow: 0px 0px 5px #bfbfbf;
+    border:1px solid #fff;
+    padding: 0px 5px;
+}
+
+.m-datatable-default .m-datatable-view-options a{
+    float:left;
+    display:block;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 11px;
+    font-family: 'Courier New' , Monospace
+}
+
+.m-datatable-default .m-datatable-view-options span, .m-datatable-default .m-datatable-view-options input, .m-datatable-default .m-datatable-view-options select{
+    float:left;
+    margin-right: 3px;
+    margin-left: 3px;
+    display:block;
+    font-size: 11px;
+    font-family: 'Courier New' , Monospace
+}
+
+.m-datatable-default .m-datatable-view-options img{
+    margin-top: 4px;
+}
+
+.m-datatable-default .m-datatable-view-options input{
+    width: 40px;
+    text-align: center;
+    margin-top: 1px;
+}
+
+.m-datatable-default .m-datatable-view-options select{
+    width: 55px;
+    text-align: center;
+    margin-top: 1px;
+}
+
+.m-datatable-default .m-datatable-multiactions{
+    display:block;
+    float:left;
+    width: auto;
+    height:24px;
+    margin:10px 5px;
+    line-height: 24px;
+    padding: 0px 5px;
+}
+
+.m-datatable-default .m-datatable-multiactions a{
+    display:block;
+    float:left;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-right: 5px;
+    color:#58acfa;
+}
+
+.m-datatable-default .m-datatable-multiactions a *{
+    float:left;
+}
+
+.m-datatable-default .m-datatable-multiactions a img{
+    max-height: 16px;
+    margin-top: 4px;
+    margin-right: 3px;
+}
+
+.m-datatable-default .m-datatable-multiactions a:hover{
+    color:#1d5987;
+}
