@@ -9,5 +9,12 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+		"mpf-soft/mpf" => "*"
+    },
+    "autoload" : {
+		"psr-4" : {
+			"mpf\\widgets\\" : "/"
+		}
+    }
 }
