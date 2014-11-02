@@ -26,11 +26,11 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\datatable\columns;
+namespace mpf\widgets\datatable\columns;
 
 use mpf\web\AssetsPublisher;
 use mpf\web\helpers\Form;
-use mWidgets\datatable\Table;
+use mpf\widgets\datatable\Table;
 
 /**
  * Description of Text

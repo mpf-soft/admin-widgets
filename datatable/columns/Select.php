@@ -6,7 +6,7 @@
  * Time: 13:50
  */
 
-namespace mWidgets\datatable\columns;
+namespace mpf\widgets\datatable\columns;
 
 
 class Select extends Basic {

@@ -26,7 +26,7 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\form;
+namespace mpf\widgets\form;
 
 use mpf\web\AssetsPublisher;
 use mpf\web\helpers\Html;
@@ -177,10 +177,10 @@ class Form extends \mpf\base\Widget {
                 $fields[] = $field->display($this);
             } elseif (is_array($field)) {
                 $class = isset($field['type']) ? ucfirst($field['type']) : 'Text';
-                $class = (false === strpos($class, '\\')) ? '\\mWidgets\\form\\fields\\' . $class : $class;
+                $class = (false === strpos($class, '\\')) ? '\\mpf\\widgets\\form\\fields\\' . $class : $class;
                 unset($field['type']);
                 $field = new $class($field);
-                /* @var $field \mWidgets\form\Field */
+                /* @var $field \mpf\widgets\form\Field */
                 $fields[] = $field->display($this);
             }
         }

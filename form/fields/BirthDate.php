@@ -26,13 +26,13 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\form\fields;
+namespace mpf\widgets\form\fields;
 
 /**
  * Description of BirthDate
  *
  * @author Mirel Mitache
  */
-class BirthDate extends \mWidgets\form\Field{
+class BirthDate extends \mpf\widgets\form\Field{
     //put your code here
 }

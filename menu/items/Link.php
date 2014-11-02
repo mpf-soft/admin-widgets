@@ -26,7 +26,7 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\menu\items;
+namespace mpf\widgets\menu\items;
 use mpf\base\TranslatableObject;
 
 /**

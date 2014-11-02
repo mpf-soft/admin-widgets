@@ -6,11 +6,11 @@
  * Time: 20:24
  */
 
-namespace mWidgets\datatable\columns;
+namespace mpf\widgets\datatable\columns;
 
 /**
  * Class Enum
- * @package mWidgets\datatable\columns
+ * @package mpf\widgets\datatable\columns
  */
 class Enum extends Basic{
 

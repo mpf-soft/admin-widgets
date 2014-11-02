@@ -6,7 +6,7 @@
  * Time: 16:07
  */
 
-namespace mWidgets\viewtable;
+namespace mpf\widgets\viewtable;
 
 
 use mpf\base\Widget;
@@ -32,7 +32,7 @@ class Table extends Widget {
         $t = Html::get()->cssFile(AssetsPublisher::get()->publishFolder(__DIR__ . DIRECTORY_SEPARATOR . 'assets') . 'table.css');
         $content = array();
         foreach ($columns as $column) {
-            /* @var $column \mWidgets\viewtable\columns\Basic */
+            /* @var $column \mpf\widgets\viewtable\columns\Basic */
             $content[] = $column->display();
         }
         $content = implode("\n", $content);
@@ -53,7 +53,7 @@ class Table extends Widget {
             $details['name'] = $name;
             $details['table'] = $this;
             if (false === strpos($class, '\\')) {
-                $class = '\\mWidgets\\viewtable\\columns\\' . $class;
+                $class = '\\mpf\\widgets\\viewtable\\columns\\' . $class;
             }
             unset($details['class']);
             $columns[$name] = new $class($details);

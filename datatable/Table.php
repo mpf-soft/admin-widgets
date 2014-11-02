@@ -26,11 +26,11 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\datatable;
+namespace mpf\widgets\datatable;
 
 use mpf\web\AssetsPublisher;
 use mpf\web\helpers\Html;
-use \mWidgets\Exception as WidgetException;
+use mpf\widgets\Exception as WidgetException;
 use \mpf\web\helpers\Html as HtmlHelper;
 
 class Table extends \mpf\base\Widget {
@@ -113,9 +113,9 @@ class Table extends \mpf\base\Widget {
      *  array(
      *      'id',
      *      'name' => array(
-     *          'class' => 'SomeColumnClass', // if namespace it's not specified it will use \mWidgets\datatable\columns\ as namespace
+     *          'class' => 'SomeColumnClass', // if namespace it's not specified it will use \mpf\widgets\datatable\columns\ as namespace
      *              //but another can be specified in order to search for custom columns in other locations
-     *              // default class is: \mWidgets\datatable\columns\Basic
+     *              // default class is: \mpf\widgets\datatable\columns\Basic
      *          'filter' => false, // can be set to false (and there is no filter), array('key' => 'value') for a select with specified options or can be a string
      *              // with html code for the exact filter, also NULL is the default value and shows a text input
      *          'value' => '$data["column"] . $data["anotherColumn"]' // it can use a php eval to run custom code for value
@@ -161,7 +161,7 @@ class Table extends \mpf\base\Widget {
 
     /**
      * List of instantiated columns
-     * @var \mWidgets\datatable\columns\Basic[string]
+     * @var \mpf\widgets\datatable\columns\Basic[string]
      */
     protected $columnObjects;
 

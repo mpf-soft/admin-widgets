@@ -6,7 +6,7 @@
  * Time: 20:21
  */
 
-namespace mWidgets\datatable\columns;
+namespace mpf\widgets\datatable\columns;
 
 use mpf\web\helpers\Form;
 

@@ -26,7 +26,7 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\form;
+namespace mpf\widgets\form;
 
 use mpf\web\helpers\Html;
 
@@ -81,7 +81,7 @@ abstract class Field extends \mpf\base\TranslatableObject {
 
     /**
      *
-     * @var \mWidgets\form\Form
+     * @var \mpf\widgets\form\Form
      */
     public $form;
 
@@ -129,7 +129,7 @@ abstract class Field extends \mpf\base\TranslatableObject {
 
     /**
      * Get html content for current field.
-     * @param \mWidgets\form\Form $form
+     * @param \mpf\widgets\form\Form $form
      * @return string
      */
     public function display(Form $form) {

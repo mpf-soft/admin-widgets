@@ -6,7 +6,7 @@
  * Time: 16:10
  */
 
-namespace mWidgets\viewtable\columns;
+namespace mpf\widgets\viewtable\columns;
 
 
 use mpf\base\Object;
@@ -33,7 +33,7 @@ class Basic extends Object {
     public $type = 'input';
 
     /**
-     * @var \mWidgets\viewtable\Table
+     * @var \mpf\widgets\viewtable\Table
      */
     public $table;
 

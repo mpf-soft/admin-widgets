@@ -26,7 +26,7 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\menu;
+namespace mpf\widgets\menu;
 
 /**
  * Description of Menu
@@ -69,7 +69,7 @@ class Menu extends \mpf\base\Widget {
 
     /**
      * List of instatiated items;
-     * @var \mWidgets\menu\items\Link[]
+     * @var \mpf\widgets\menu\items\Link[]
      */
     protected $instantiatedItems = array();
 
@@ -83,11 +83,11 @@ class Menu extends \mpf\base\Widget {
         foreach ($items as $item) {
             $class = isset($item['class']) ? $item['class'] : 'Link';
             if (false === strpos($class, '\\')) {
-                $class = '\\mWidgets\\menu\\items\\' . $class;
+                $class = '\\mpf\widgets\\menu\\items\\' . $class;
             }
             unset($item['class']);
             $obj = new $class($item);
-            /* @var $obj \mWidgets\menu\items\Link */
+            /* @var $obj \mpf\widgets\menu\items\Link */
             $obj->items = $this->loadItems(isset($item['items']) ? $item['items'] : array());
             $result[] = $obj;
         }
@@ -102,7 +102,7 @@ class Menu extends \mpf\base\Widget {
         echo \mpf\web\helpers\Html::get()->cssFile($this->assetsURL . 'style.css');
         $content = '';
         foreach ($this->instantiatedItems as $item) {
-            /* @var $item \mWidgets\menu\items\Link */
+            /* @var $item \mpf\widgets\menu\items\Link */
             $content .= $item->display();
         }
         if (!isset($this->htmlOptions['class'])) {

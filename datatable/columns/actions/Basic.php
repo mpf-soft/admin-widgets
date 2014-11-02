@@ -26,12 +26,12 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\datatable\columns\actions;
+namespace mpf\widgets\datatable\columns\actions;
 
 use mpf\base\TranslatableObject;
 use mpf\web\AssetsPublisher;
 use mpf\web\helpers\Html;
-use mWidgets\datatable\Table;
+use mpf\widgets\datatable\Table;
 
 /**
  * This is the basic action for "Actions" column. There are some more defined
@@ -143,7 +143,7 @@ class Basic extends TranslatableObject {
     /**
      * Final result, a HTML Element for current action;
      * @param Model $row
-     * @param \mWidgets\datatable\Table $table
+     * @param \mpf\widgets\datatable\Table $table
      * @return string
      */
     public function getString($row, Table $table) {
@@ -193,7 +193,7 @@ class Basic extends TranslatableObject {
     /**
      * Get HTML img tag for icon or an empty string if there is no icon
      * @param string $title
-     * @param \mWidgets\datatable\Table $table
+     * @param \mpf\widgets\datatable\Table $table
      * @return string
      */
     public function getIcon($title, Table $table) {

@@ -26,7 +26,7 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\datatable\columns\actions;
+namespace mpf\widgets\datatable\columns\actions;
 
 /**
  * Description of Duplicate

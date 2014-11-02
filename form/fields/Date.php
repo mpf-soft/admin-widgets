@@ -26,7 +26,7 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\form\fields;
+namespace mpf\widgets\form\fields;
 use mpf\web\helpers\Form;
 
 /**
@@ -34,7 +34,7 @@ use mpf\web\helpers\Form;
  *
  * @author Mirel Mitache
  */
-class Date extends \mWidgets\form\Field{
+class Date extends \mpf\widgets\form\Field{
     /**
      * Date format.
      * @var string

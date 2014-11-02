@@ -1,4 +1,4 @@
-<?php /* @var $this \mWidgets\datatable\Table */ ?>
+<?php /* @var $this \mpf\widgets\datatable\Table */ ?>
 
 <span><?= $this->translate('Page'); ?></span>
 <?= $this->getPageLink(1, 'first'); ?>

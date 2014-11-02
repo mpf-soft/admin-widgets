@@ -1,5 +1,5 @@
-<?php /* @var $this \mWidgets\datatable\Table */ ?>
-<?php /* @var $column \mWidgets\datatable\columns\Basic */ ?>
+<?php /* @var $this \mpf\widgets\datatable\Table */ ?>
+<?php /* @var $column \mpf\widgets\datatable\columns\Basic */ ?>
 <div multi-actions-key="<?= $this->dataProvider->filtersKey; ?>"
      data-token-key="<?= \mpf\web\request\HTML::get()->getCsrfKey(); ?>"
      data-token-value="<?= \mpf\web\request\HTML::get()->getCsrfValue(); ?>"

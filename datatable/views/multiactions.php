@@ -1,4 +1,4 @@
-<?php /* @var $this mWidgets\datatable\Table */ ?>
+<?php /* @var $this mpf\widgets\datatable\Table */ ?>
 <?php foreach ($this->multiSelectActions as $name => $details) { ?>
     <?php $details = is_array($details) ? $details : array('label' => $details); ?>
     <?php $htmlOptions = isset($details['htmlOptions']) ? $details['htmlOptions'] : array(); ?>

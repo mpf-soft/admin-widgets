@@ -26,7 +26,7 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\form\fields;
+namespace mpf\widgets\form\fields;
 use mpf\web\helpers\Form;
 
 /**
@@ -34,7 +34,7 @@ use mpf\web\helpers\Form;
  *
  * @author Mirel Mitache
  */
-class Radio extends \mWidgets\form\Field{
+class Radio extends \mpf\widgets\form\Field{
     //put your code here
 
     public $options;

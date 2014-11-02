@@ -26,7 +26,7 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets\datatable\columns;
+namespace mpf\widgets\datatable\columns;
 
 /**
  * Description of Actions
@@ -58,7 +58,7 @@ class Actions extends Basic {
         foreach ($this->buttons as $name => $details) {
             $class = isset($details['class']) ? $details['class'] : 'Basic';
             if (false === strpos($class, '\\'))
-                $class = '\\mWidgets\\datatable\\columns\\actions\\' . $class;
+                $class = '\\mpf\widgets\\datatable\\columns\\actions\\' . $class;
             $details['name'] = $name;
             unset($details['class']);
             $this->instancedButtons[$name] = new $class($details);
@@ -66,7 +66,7 @@ class Actions extends Basic {
         foreach ($this->topButtons as $name => $details){
             $class = isset($details['class']) ? $details['class'] : 'Basic';
             if (false === strpos($class, '\\'))
-                $class = '\\mWidgets\\datatable\\columns\\actions\\' . $class;
+                $class = '\\mpf\widgets\\datatable\\columns\\actions\\' . $class;
             $details['name'] = $name;
             unset($details['class']);
             $this->instancedTopButtons[$name] = new $class($details);
@@ -96,7 +96,7 @@ class Actions extends Basic {
     function getValue($row, $table) {
         $result = '';
         foreach ($this->instancedButtons as $button){
-            /* @var $button \mWidgets\datatable\columns\actions\Basic */
+            /* @var $button \mpf\widgets\datatable\columns\actions\Basic */
             $result .= ' ' . $button->getString($row, $table);
         }
         return $result?$result:'&nbsp;';
@@ -105,7 +105,7 @@ class Actions extends Basic {
     public function getHeaderCode(Table $table){
         $result = '';
         foreach ($this->instancedTopButtons as $button){
-            /* @var $button \mWidgets\datatable\columns\actions\Basic */
+            /* @var $button \mpf\widgets\datatable\columns\actions\Basic */
             $result .= ' ' . $button->getTopString($table);
         }
         return $result?$result:'&nbsp;';

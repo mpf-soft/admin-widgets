@@ -26,7 +26,7 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace mWidgets;
+namespace mpf\widgets;
 
 /**
  * Description of Exception
