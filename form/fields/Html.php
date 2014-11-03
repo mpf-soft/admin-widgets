@@ -28,11 +28,19 @@
 
 namespace mpf\widgets\form\fields;
 
+use mpf\web\helpers\Form;
+use mpf\widgets\form\Field;
+
 /**
  * Description of Html
  *
  * @author Mirel Mitache
  */
-class Html extends Textarea{
-    //put your code here
+class Html extends Field {
+
+    public $tinyMCETemplate = 'basic';
+
+    public function getInput() {
+        return Form::get()->htmlTextarea($this->getName(), $this->getValue(), $this->htmlOptions, $this->tinyMCETemplate);
+    }
 }

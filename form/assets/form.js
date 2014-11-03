@@ -25,3 +25,9 @@
  */
 
 
+$(document).ready(function(){
+    $('.birthday').change(function(){
+        var parent = this.parentNode;
+        $('.birthday_value', parent).val($('.bday-year').val() + '-' + $('.bday-month').val() + '-' + $('.bday-day').val());
+    })
+});
