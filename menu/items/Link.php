@@ -61,7 +61,7 @@ class Link extends TranslatableObject {
      * List of  subitems for current item.
      * @var Link[]
      */
-    public $items = array();
+    public $items = [];
 
     /**
      * Set it to visible or hidden;
@@ -73,7 +73,13 @@ class Link extends TranslatableObject {
      * List of HTML options for current item.
      * @var string[string]
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
+
+    /**
+     * Html Options for link element
+     * @var array
+     */
+    public $linkHtmlOptions = [];
 
     /**
      * Returns current item as HTML Code
@@ -83,7 +89,7 @@ class Link extends TranslatableObject {
         if (!$this->isVisible()) { //return nothing if it's not visible
             return "";
         }
-        $content = \mpf\web\helpers\Html::get()->link($this->getURL(), $this->getIcon() . $this->translate($this->label));
+        $content = \mpf\web\helpers\Html::get()->link($this->getURL(), $this->getIcon() . $this->translate($this->label), $this->linkHtmlOptions);
         $submenu = "";
         $anySelected = false;
         if (count($this->items)) {

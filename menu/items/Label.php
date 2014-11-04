@@ -63,7 +63,13 @@ class Label extends \mpf\base\TranslatableObject {
      * List of HTML options for current item.
      * @var string[string]
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
+
+    /**
+     * List of HTML Options for span element
+     * @var array
+     */
+    public $labelHtmlOptions = [];
 
     /**
      * Returns current item as HTML Code
@@ -73,7 +79,7 @@ class Label extends \mpf\base\TranslatableObject {
         if (!$this->isVisible())
             return "";
 
-        $content = \mpf\web\helpers\Html::get()->tag('span', $this->getIcon() . $this->translate($this->label));
+        $content = \mpf\web\helpers\Html::get()->tag('span', $this->getIcon() . $this->translate($this->label), $this->labelHtmlOptions);
         $submenu = "";
         if (count($this->items)) {
             $anySelected = false;
