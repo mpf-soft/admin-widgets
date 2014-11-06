@@ -29,7 +29,7 @@ $(document).ready(function () {
     $('.mtable-per-page-select').change(function () {
         $('<form>').attr('method', 'POST')
             .appendTo(this.parentNode)
-            .html('<input type="hidden" name="' + $('.m-datatable:first').attr('data-token-key') + '" value="' + $('.m-datatable:first').attr('data-token-key') + '" />'
+            .html('<input type="hidden" name="' + $('.m-datatable:first').attr('data-token-key') + '" value="' + $('.m-datatable:first').attr('data-token-value') + '" />'
             +'<input type="hidden" name="' + $(this).attr('name') + '" value="' + $(this).val() + '" />')
             .submit();
     });
