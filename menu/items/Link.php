@@ -140,7 +140,7 @@ class Link extends TranslatableObject {
         if (is_string($this->url)) {
             return $this->url;
         }
-        return \mpf\WebApp::get()->request()->createURL(isset($this->url[0]) ? $this->url[0] : 'home', isset($this->url[1]) ? $this->url[1] : null, isset($this->url[2]) ? $this->url[2] : array(), isset($this->url[3]) ? $this->url[3] : null);
+        return \mpf\WebApp::get()->request()->createURL(isset($this->url[0]) ? $this->url[0] : 'home', isset($this->url[1]) ? $this->url[1] : null, isset($this->url[2]) ? $this->url[2] : array(), isset($this->url[3]) ? $this->url[3] : ((isset($this->url[2]) && is_string($this->url[2]))?$this->url[2]:null));
     }
 
     /**
@@ -191,7 +191,15 @@ class Link extends TranslatableObject {
         }
         $controller = isset($this->url[0]) ? $this->url[0] : 'home';
         $action = isset($this->url[1]) ? $this->url[1] : null;
-        if (\mpf\WebApp::get()->accessMap && (!\mpf\WebApp::get()->accessMap->canAccess($controller, $action, $this->getModule()))) {
+        if (false !== strpos($controller, '/')){
+            list ($module, $controller) = explode('/', $controller, 2);
+            if ('..' == $module){
+                $module = '/';
+            }
+        } else {
+            $module = (isset($this->url[2]) && is_string($this->url[2]))?$this->url[2]:(isset($this->url[3])?$this->url[3]:null);
+        }
+        if (\mpf\WebApp::get()->accessMap && (!\mpf\WebApp::get()->accessMap->canAccess($controller, $action, $module))) {
             return false;
         }
         return true;
