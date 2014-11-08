@@ -2,24 +2,6 @@
     "name": "mpf-soft/admin-widgets",
     "description": "Basic widgets used by Admin module from base-app",
     "license": "Apache License",
-    "repositories" : [
-        {
-            "type" : "package",
-            "package" : {
-                "name" : "passnox/oxygen-icons-png",
-                "version" : "4.11.3",
-                "dist" : {
-                    "url" : "https://github.com/pasnox/oxygen-icons-png/archive/master.zip",
-                    "type" : "zip"
-                },
-                "source" : {
-                    "url" : "https://github.com/pasnox/oxygen-icons-png/",
-                    "type" : "svn",
-                    "reference" : "tags/pasnox/oxygen"
-                }
-            }
-        }
-    ],
     "authors": [
         {
             "name": "Mirel Mitache",
@@ -28,12 +10,11 @@
     ],
     "minimum-stability": "dev",
     "require": {
-		"mpf-soft/mpf" : "*",
-        "passnox/oxygen-icons-png" : "*"
+	"mpf-soft/mpf" : "*",
     },
     "autoload" : {
-		"psr-4" : {
-			"mpf\\widgets\\" : "/"
-		}
+	"psr-4" : {
+		"mpf\\widgets\\" : "/"
+	}
     }
 }
