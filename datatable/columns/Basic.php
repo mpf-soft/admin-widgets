@@ -30,6 +30,7 @@ namespace mpf\widgets\datatable\columns;
 
 use mpf\web\AssetsPublisher;
 use mpf\web\helpers\Form;
+use mpf\web\helpers\Html;
 use mpf\widgets\datatable\Table;
 
 /**
@@ -227,7 +228,7 @@ class Basic extends \mpf\base\Object {
             $this->iconArrowDown = AssetsPublisher::get()->mpfAssetFile(substr($this->iconArrowDown, 12));
         }
         if ($order[0] == $this->name) {
-            $prefix = ('ASC' == $order[1]) ? \mpf\web\helpers\Html::get()->image($this->iconArrowDown, 'Order Ascendent') : \mpf\web\helpers\Html::get()->image($this->iconArrowDown, 'Order Ascendent');
+            $prefix = ('ASC' == $order[1]) ? Html::get()->image($this->iconArrowUp, 'Order Descendent', ['class' => 'order-by-img']) : Html::get()->image($this->iconArrowDown, 'Order Ascendent', ['class' => 'order-by-img']);
         }
         return $this->dataProvider->getColumnOrderLink($this->name, $prefix . $label);
     }
