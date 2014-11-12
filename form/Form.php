@@ -159,10 +159,6 @@ class Form extends \mpf\base\Widget {
      * @return string
      */
     protected function getContent() {
-        $csrf = '';
-        if (\mpf\web\request\HTML::get()->secure && strtoupper($this->method) == 'POST') {
-            $csrf = \mpf\web\helpers\Form::get()->hiddenInput(\mpf\web\request\HTML::get()->getCsrfKey(), \mpf\web\request\HTML::get()->getCsrfValue());
-        }
 
         $hiddenInputs = array();
         foreach ($this->hiddenInputs as $name=>$value){
@@ -204,7 +200,7 @@ class Form extends \mpf\base\Widget {
             $links[] = Html::get()->link($link, $this->translate($label));
         }
         $links = implode(' ', $links);
-        return $csrf . $hiddenInputs . implode("\n", $fields) . HtmlHelper::get()->tag('div', $links . implode("\n", $buttons), $this->buttonsRowHtmlOptions);
+        return $hiddenInputs . implode("\n", $fields) . HtmlHelper::get()->tag('div', $links . implode("\n", $buttons), $this->buttonsRowHtmlOptions);
     }
 
     /**
