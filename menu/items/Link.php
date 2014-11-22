@@ -140,7 +140,7 @@ class Link extends TranslatableObject {
         if (is_string($this->url)) {
             return $this->url;
         }
-        return \mpf\WebApp::get()->request()->createURL(isset($this->url[0]) ? $this->url[0] : 'home', isset($this->url[1]) ? $this->url[1] : null, isset($this->url[2]) ? $this->url[2] : array(), isset($this->url[3]) ? $this->url[3] : ((isset($this->url[2]) && is_string($this->url[2]))?$this->url[2]:null));
+        return \mpf\WebApp::get()->request()->createURL(isset($this->url[0]) ? $this->url[0] : 'home', isset($this->url[1]) ? $this->url[1] : null, (isset($this->url[2]) && is_array($this->url[2])) ? $this->url[2] : array(), isset($this->url[3]) ? $this->url[3] : ((isset($this->url[2]) && is_string($this->url[2]))?$this->url[2]:null));
     }
 
     /**
