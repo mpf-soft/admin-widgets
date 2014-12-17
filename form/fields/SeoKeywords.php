@@ -17,8 +17,26 @@ class SeoKeywords extends Field {
 
     protected static $published = false;
 
+    public $separator = ', ';
+
+    public $deleteLabel = 'x';
+
+    /**
+     * @var string
+     * Value can be set to string or array. If is array then a list of keywords will be returned; Also separator value won't be used.
+     */
+    public $valueAs = 'string';
+
     public function getInput() {
-        $r = Form::get()->hiddenInput($this->getName(), $this->getValue(), ['class'=>'keywords-hidden-input']);
+        if (!in_array($this->valueAs, ['string', 'array'])){
+            trigger_error("Invalid option for `valueAs`! Can only be string or array!");
+            return "";
+        }
+        if ('string' == $this->valueAs) {
+            $r = Form::get()->hiddenInput($this->getName(), $this->getValue(), ['class' => 'keywords-hidden-input']);
+        } else {
+            $r = Form::get()->select($this->getName(), $this->getValue(), $this->getValue(), ['class' => 'keywords-hidden-input', 'multiple' => 'multiple']);
+        }
         $r .= Html::get()->tag('div', '', ['class' => 'keywords-list-input']);
         $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' ' : '') . $this->inputClass . ' keywords-visible-input';
         $r .= Form::get()->input('', 'text', '', $this->htmlOptions);
@@ -39,15 +57,17 @@ class SeoKeywords extends Field {
     $('.keywords-visible-input').each(function(){
         // 1. get old values
         var _parent = this.parentNode;
-        var old = $('.keywords-hidden-input', this.parentNode).val().split(', ');
+        var old = keyWordsGetOld(_parent);
         $.each(old, function(index, value){
-            addKeyWordToList(value, _parent);
+            if (value) {
+                addKeyWordToList(value, _parent);
+            }
         });
         // 2. make it ready for new words
         $(this).keypress(function(event){
             if (event.keyCode == 13){
                 var word = $(this).val();
-                var old = $('.keywords-hidden-input', this.parentNode).val().split(', ');
+                var old = keyWordsGetOld(_parent);
                 var alreadyFound = false;
                 for (var i =0; i< old.length; i++){
                     if (old[i] == word) {
@@ -56,7 +76,7 @@ class SeoKeywords extends Field {
                 }
                 if (!alreadyFound){
                    old[old.length] = word;
-                   $('.keywords-hidden-input', this.parentNode).val(old.join(', '));
+                   keyWordsSetNew(old, _parent);
                    addKeyWordToList(word, this.parentNode);
                 }
 
@@ -68,25 +88,50 @@ class SeoKeywords extends Field {
 });
 
 function addKeyWordToList(word, parent){
-    $('<a>').addClass('keyword-word-box').html('<span>' + word + '</span><a class="keyword-remove" onclick="return removeKeyWordFromList(this.parentNode);">x</a>')
+    $('<a>').addClass('keyword-word-box').html('<span>' + word + '</span><a class="keyword-remove" onclick="return removeKeyWordFromList(this.parentNode);">{$this->deleteLabel}</a>')
             .appendTo($('.keywords-list-input', parent));
 }
 
 function removeKeyWordFromList(element){
     var word = $('span', element).text();
     $(element).remove();
-    var old = $('.keywords-hidden-input', element.parentNode.parentNode).val().split(', ');
-    var new = [];
-    for (var i = 0;i < old.length; i++){
-        if (old[i] != word) {
-            new[new.length] = old[i];
+    var oldWords = keyWordsGetOld(element.parentNode.parentNode);
+    var newWords = [];
+    for (var i = 0;i < oldWords.length; i++){
+        if (oldWords[i] != word) {
+            newWords[newWords.length] = old[i];
         }
     }
-    $('.keywords-hidden-input', element.parentNode.parentNode).val(new.join(', '));
+    keyWordsSetNew(newWords, element.parentNode.parentNode);
 }
+
 SCRIPT;
 
-        return Html::get()->script($script);
+        if ('string' == $this->valueAs) {
+            $extra = <<<EXTRA
+function keyWordsGetOld(parent){
+   return $('.keywords-hidden-input', parent).val().split('{$this->separator}');
+}
+function keyWordsSetNew(words, parent){
+    $('.keywords-hidden-input', parent).val(words.join('{$this->separator}'));
+}
+
+EXTRA;
+        } else {
+            $extra = <<<EXTRA
+function keyWordsGetOld(parent){
+   return $('.keywords-hidden-input', parent).val();
+}
+function keyWordsSetNew(words, parent){
+   $('.keywords-hidden-input', parent).val(words);
+}
+EXTRA;
+
+        }
+
+
+
+        return Html::get()->script($script . $extra);
     }
 
     /**
@@ -94,6 +139,35 @@ SCRIPT;
      */
     public function getStyles() {
         $style = <<<STYLE
+.keywords-hidden-input{
+    display:none;
+}
+
+.keywords-list-input{
+  padding:10px;
+  display:Block;
+  float:left;
+  clear:both;
+}
+.keywords-list-input .keyword-word-box{
+  display:block;
+  float:left;
+  padding:3px;
+  margin:2px;
+  line-height:16px;
+  text-decoration: none !important;
+}
+
+.mform-default-wide .keywords-list-input .keyword-word-box, .mform-default .keywords-list-input .keyword-word-box{
+  border-radius:5px;
+  border:1px solid #3f6faf;
+}
+
+.keywords-list-input .keyword-word-box .keyword-remove{
+  color:orangered;
+  padding-left:5px;
+  cursor:pointer;
+}
 
 STYLE;
 
