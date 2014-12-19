@@ -21,6 +21,8 @@ class SeoKeywords extends Field {
 
     public $deleteLabel = 'x';
 
+    public $placeHolder = 'Write it & press ENTER to add it to the list';
+
     /**
      * @var string
      * Value can be set to string or array. If is array then a list of keywords will be returned; Also separator value won't be used.
@@ -39,6 +41,7 @@ class SeoKeywords extends Field {
         }
         $r .= Html::get()->tag('div', '', ['class' => 'keywords-list-input']);
         $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' ' : '') . $this->inputClass . ' keywords-visible-input';
+        $this->htmlOptions['placeholder'] = $this->translate($this->placeHolder);
         $r .= Form::get()->input('', 'text', '', $this->htmlOptions);
         if (!self::$published) {
             $r .= $this->getScripts() . $this->getStyles();
@@ -141,6 +144,10 @@ EXTRA;
         $style = <<<STYLE
 .keywords-hidden-input{
     display:none;
+}
+
+.keywords-visible-input{
+    max-width: 40%;
 }
 
 .keywords-list-input{
