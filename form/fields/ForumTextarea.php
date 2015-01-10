@@ -96,4 +96,26 @@ STYLE;
         return Html::get()->css($style);
     }
 
+    /**
+     * @param string $original
+     * @param array $rules
+     * @return string
+     */
+    public static function parseText($original, $rules){
+        foreach ($rules as $name => $rule){
+            $original = self::applyRule($original, $name, $rule);
+        }
+        return $original;
+    }
+
+    /**
+     * @param string $text
+     * @param string $name
+     * @param string|callback $rule
+     * @return string
+     */
+    protected static function applyRule($text, $name, $rule){
+
+        return $text;
+    }
 }
