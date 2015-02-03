@@ -108,7 +108,7 @@ SCRIPT;
      * @return string
      */
     protected static function applyRule($text, $name, $rule){
-        preg_match_all("#\\[$name\\](.*?)\\[\\/$name\\]#s", $text, $matches);
+        preg_match_all("#\\[$name\\](.*?)\\[\\\\$name\\]#s", $text, $matches);
         $list = [];
         foreach ($matches[0] as $k=>$original){
             $list[$original] = $matches[1][$k]; // original => text
