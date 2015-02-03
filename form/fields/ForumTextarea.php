@@ -25,7 +25,7 @@ class ForumTextarea extends Textarea{
     public $tagsSeparator = ', ';
 
     public function getInput(){
-        return $this->getBeforeInput() . parent::getInput() . $this->getAfterInput() . $this->getScripts() . $this->getStyle();
+        return $this->getBeforeInput() . parent::getInput() . $this->getAfterInput() . $this->getScripts();
     }
 
     protected function getBeforeInput(){
@@ -89,13 +89,6 @@ SCRIPT;
         return Html::get()->script($script);
     }
 
-    public function getStyle(){
-        $style = <<<STYLE
-
-STYLE;
-        return Html::get()->css($style);
-    }
-
     /**
      * @param string $original
      * @param array $rules
@@ -115,7 +108,50 @@ STYLE;
      * @return string
      */
     protected static function applyRule($text, $name, $rule){
-
+        preg_match_all("#\\[$name\\](.*?)\\[\\/$name\\]#", $text, $matches);
+        $list = [];
+        foreach ($matches[0] as $k=>$original){
+            $list[$original] = $matches[1][$k]; // original => text
+        }
+        $parts = 1;
+        while (false !== strpos($rule, "{T{$parts}}")){
+            $parts++; // get number of text parts
+        }
+        foreach ($list as $original => $txt){
+            if ($parts > 1){
+                $txt= explode("|", $txt, $parts);
+                $newText= $rule;;
+                for ($i = 1; $i <= $parts; $i++ ){
+                    $newText = str_replace("{T{$i}}", $txt[$i-1], $newText);
+                }
+                $text = str_replace($original, $newText, $text);
+            } else {
+                $text = str_replace($original, str_replace('{T}', $txt, $rule), $text);
+            }
+        }
         return $text;
+    }
+
+    /**
+     * Replaced found text for a rule.
+     * @param string $text
+     * @param string $rule
+     * @return string
+     */
+    protected static function _replaceRuleText($text, $rule){
+        for ($parts = 1; $parts < 20; $parts++){
+            if (false === strpos($rule, "{T$parts}"))
+                break;
+        }
+        if (1=== $parts){
+            return str_replace(["T", "T1"], $text, $rule);
+        }
+        $text = str_replace("\\|", "<<__E\$C@P#D__>>", $text);
+        $pieces = explode("|", $text, $parts);
+        $text = str_replace("{T}", $text, $rule);
+        for ($i = 0; $i < $parts; $i++){
+            $text = str_replace("{T".($i+1)."}", $pieces[$i], $text);
+        }
+        return str_replace("<<__E\$C@P#D__>>", "\\|", $text);
     }
 }
