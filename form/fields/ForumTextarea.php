@@ -99,7 +99,7 @@ SCRIPT;
         foreach ($rules as $name => $rule){
             $original = self::applyRule($original, $name, $rule);
         }
-        return nl2br(str_replace(array_keys($extraVars), array_values($extraVars), $original));
+        return str_replace(array_keys($extraVars), array_values($extraVars), $original);
     }
 
     /**
