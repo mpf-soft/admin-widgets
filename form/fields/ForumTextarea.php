@@ -92,13 +92,14 @@ SCRIPT;
     /**
      * @param string $original
      * @param array $rules
+     * @param array $extraVars Extra variables to be replaced if found
      * @return string
      */
-    public static function parseText($original, $rules){
+    public static function parseText($original, $rules, $extraVars){
         foreach ($rules as $name => $rule){
             $original = self::applyRule($original, $name, $rule);
         }
-        return $original;
+        return nl2br(str_replace(array_keys($extraVars), array_values($extraVars), $original));
     }
 
     /**
