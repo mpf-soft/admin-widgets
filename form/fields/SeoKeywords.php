@@ -62,7 +62,7 @@ class SeoKeywords extends Field {
         var _parent = this.parentNode;
         var old = keyWordsGetOld(_parent);
         $.each(old, function(index, value){
-            if (value) {
+            if (value && '' != value) {
                 addKeyWordToList(value, _parent);
             }
         });
@@ -70,6 +70,9 @@ class SeoKeywords extends Field {
         $(this).keypress(function(event){
             if (event.keyCode == 13){
                 var word = $(this).val();
+                if (!word) {
+                    return false;
+                }
                 var old = keyWordsGetOld(_parent);
                 var alreadyFound = false;
                 for (var i =0; i< old.length; i++){
@@ -97,15 +100,15 @@ function addKeyWordToList(word, parent){
 
 function removeKeyWordFromList(element){
     var word = $('span', element).text();
-    $(element).remove();
     var oldWords = keyWordsGetOld(element.parentNode.parentNode);
     var newWords = [];
     for (var i = 0;i < oldWords.length; i++){
-        if (oldWords[i] != word) {
-            newWords[newWords.length] = old[i];
+        if ((oldWords[i] != word && oldWords[i].toString() != '')) {
+            newWords[newWords.length] = oldWords[i];
         }
     }
     keyWordsSetNew(newWords, element.parentNode.parentNode);
+    $(element).remove();
 }
 
 SCRIPT;
