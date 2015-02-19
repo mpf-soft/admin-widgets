@@ -116,7 +116,7 @@ SCRIPT;
         if ('string' == $this->valueAs) {
             $extra = <<<EXTRA
 function keyWordsGetOld(parent){
-   return $('.keywords-hidden-input', parent).val().split('{$this->separator}');
+   return $('.keywords-hidden-input', parent).val()?$('.keywords-hidden-input', parent).val().split('{$this->separator}'):[];
 }
 function keyWordsSetNew(words, parent){
     $('.keywords-hidden-input', parent).val(words.join('{$this->separator}'));
