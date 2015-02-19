@@ -1,5 +1,4 @@
 <?php /* @var $this \mpf\widgets\datatable\Table */ ?>
-
 <span><?= $this->translate('Page'); ?></span>
 <?= $this->getPageLink(1, 'first'); ?>
 <?= $this->getPageLink(1 == $this->dataProvider->getCurrentPage() ? 1 : $this->dataProvider->getCurrentPage() - 1, 'previous'); ?>
@@ -15,4 +14,4 @@
             value="<?= $number; ?>"><?= $number; ?></option>
     <?php } ?>
 </select>
-<span><?= $this->translate('per page'); ?></span>
+<span><?= $this->translate('per page out of'). ' <b>' . $this->dataProvider->getResultsNumber().'</b>'; ?></span>
