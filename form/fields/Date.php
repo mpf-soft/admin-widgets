@@ -41,8 +41,10 @@ class Date extends \mpf\widgets\form\Field{
      */
     public $format = 'Y-m-d';
 
+
     //put your code here
     function getInput() {
-        return Form::get()->date($this->getName(), $this->getValue(), $this->format, $this->htmlOptions);
+        $format = str_replace(['Y', 'm', 'd'], ['yy', 'mm', 'dd'], $this->format);
+        return Form::get()->date($this->getName(), $this->getValue(), $format, $this->htmlOptions);
     }
 }
