@@ -30,7 +30,7 @@ class Enum extends Basic{
      * @param array|\string[] $config
      */
     public function init($config){
-        $options = $this->dataProvider->getColumnOptions($this->column?$this->name:$this->column, $this->table);
+        $options = $this->dataProvider->getColumnOptions($this->column?$this->column:$this->name, $this->table);
         foreach ($options as $name){
             $this->filter[$name] = $name;
         }
