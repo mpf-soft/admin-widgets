@@ -39,10 +39,12 @@ class Select extends Field{
 
     public $options;
 
+    public $emptyValue = false;
+
     //put your code here
     public function getInput() {
         $options = $this->htmlOptions;
         $options['class'] = (isset($options['class']) ? $options['class'] . ' ' : '') . $this->inputClass;
-        return Form::get()->select($this->getName(), $this->options, $this->getValue(), $options);
+        return Form::get()->select($this->getName(), $this->options, $this->getValue(), $options, $this->emptyValue);
     }
 }
