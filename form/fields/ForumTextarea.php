@@ -96,6 +96,7 @@ SCRIPT;
      * @return string
      */
     public static function parseText($original, $rules, $extraVars){
+        $original = Html::get()->encode($original);
         foreach ($rules as $name => $rule){
             $original = self::applyRule($original, $name, $rule);
         }
@@ -118,6 +119,8 @@ SCRIPT;
         while (false !== strpos($rule, "{T{$parts}}")){
             $parts++; // get number of text parts
         }
+        if ($parts > 1)
+            $parts--;
         foreach ($list as $original => $txt){
             if ($parts > 1){
                 $txt= explode("|", $txt, $parts);
