@@ -82,6 +82,7 @@ class Label extends \mpf\base\TranslatableObject {
         $content = \mpf\web\helpers\Html::get()->tag('span', $this->getIcon() . $this->translate($this->label), $this->labelHtmlOptions);
         $submenu = "";
         if (count($this->items)) {
+            $this->htmlOptions['class'] = (isset($this->htmlOptions['class'])?$this->htmlOptions['class'].' ':'') . 'm-menu-dropdown';
             $anySelected = false;
             $anyVisible = false;
             foreach ($this->items as $item) {

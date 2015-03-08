@@ -21,6 +21,15 @@
     float:left;
 }
 
+.m-menu-default-dropdown ul li.m-menu-dropdown>span, .m-menu-default-dropdown ul li.m-menu-dropdown>a{
+    cursor: pointer;
+    padding-left: 15px;
+    background-image: url("draw-triangle4.png");
+    background-position: left 5px top 54%;
+    background-repeat: no-repeat;
+}
+
+
 .m-menu ul li a, .m-menu ul li span{
     padding-left:7px;
     padding-right:7px;
@@ -62,7 +71,7 @@
     background:none;
 }
 
-.m-menu-default-dropdown ul li:hover ul li span, .m-menu-default-dropdown ul li:hover ul li:hover ul li span,  .m-menu-default-dropdown ul li:hover ul li:hover ul li:hover ul li span{
+.m-menu-default-dropdown ul li.dropdownvisible ul li span, .m-menu-default-dropdown ul li.dropdownvisible ul li:hover ul li span,  .m-menu-default-dropdown ul li.dropdownvisible ul li:hover ul li:hover ul li span{
     color:#aaa;
     background:none;
 }
@@ -73,16 +82,16 @@
 }
 
 
-.m-menu-default-dropdown ul li:hover ul li a,  .m-menu-default-dropdown ul li:hover ul li:hover ul li a,   .m-menu-default-dropdown ul li:hover ul li:hover ul li:hover ul li a{
+.m-menu-default-dropdown ul li.dropdownvisible ul li a,  .m-menu-default-dropdown ul li.dropdownvisible ul li:hover ul li a,   .m-menu-default-dropdown ul li.dropdownvisible ul li:hover ul li:hover ul li a{
     color: #212131;
     background: none;
 }
 
-.m-menu-default-dropdown li:hover{
+.m-menu-default-dropdown li.dropdownvisible{
     background:#fff;
 }
 
-.m-menu-default-dropdown li:hover a, .m-menu-default-dropdown li:hover span{
+.m-menu-default-dropdown li.dropdownvisible a, .m-menu-default-dropdown li.dropdownvisible span{
     color: #1b5182;
 }
 
@@ -100,7 +109,7 @@
     left: auto;
 }
 
-.m-menu-default-dropdown ul li:hover ul{
+.m-menu-default-dropdown ul li.dropdownvisible ul{
     display:block;
 }
 
@@ -122,7 +131,7 @@
     color:#1d2957;
 }
 
-.m-menu-default-dropdown ul li:hover ul li ul{
+.m-menu-default-dropdown ul li.dropdownvisible ul li ul{
     top:0px;
     left:100%;
     right:auto;

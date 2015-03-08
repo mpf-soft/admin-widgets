@@ -28,6 +28,8 @@
 
 namespace mpf\widgets\menu\items;
 use mpf\base\TranslatableObject;
+use mpf\web\helpers\Html;
+use mpf\widgets\menu\Menu;
 
 /**
  * Description of Link
@@ -81,6 +83,7 @@ class Link extends TranslatableObject {
      */
     public $linkHtmlOptions = [];
 
+
     /**
      * Returns current item as HTML Code
      * @return string
@@ -89,10 +92,11 @@ class Link extends TranslatableObject {
         if (!$this->isVisible()) { //return nothing if it's not visible
             return "";
         }
-        $content = \mpf\web\helpers\Html::get()->link($this->getURL(), $this->getIcon() . $this->translate($this->label), $this->linkHtmlOptions);
+        $content = Html::get()->link($this->getURL(), $this->getIcon() . $this->translate($this->label), $this->linkHtmlOptions);
         $submenu = "";
         $anySelected = false;
         if (count($this->items)) {
+            $this->htmlOptions['class'] = (isset($this->htmlOptions['class'])?$this->htmlOptions['class'].' ':'') . 'm-menu-dropdown';
             $anySelected = false;
             $anyVisible = false;
             foreach ($this->items as $item) {
@@ -102,7 +106,7 @@ class Link extends TranslatableObject {
                 $anyVisible = $anyVisible || $item->isVisible();
             }
             if ($anyVisible)
-                $submenu = \mpf\web\helpers\Html::get()->tag('ul', $submenu);
+                $submenu = Html::get()->tag('ul', $submenu);
             else
                 $submenu = "";
             if ($anySelected) {
@@ -118,7 +122,7 @@ class Link extends TranslatableObject {
             $this->htmlOptions['class'] = isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' selected' : 'selected';
         }
 
-        return \mpf\web\helpers\Html::get()->tag('li', $content . $submenu, $this->htmlOptions);
+        return Html::get()->tag('li', $content . $submenu, $this->htmlOptions);
     }
 
     /**
@@ -129,7 +133,7 @@ class Link extends TranslatableObject {
         if (!$this->icon) {
             return "";
         }
-        return \mpf\web\helpers\Html::get()->image($this->icon, $this->translate($this->label));
+        return Html::get()->image($this->icon, $this->translate($this->label));
     }
 
     /**

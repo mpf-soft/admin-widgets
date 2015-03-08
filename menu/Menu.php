@@ -27,6 +27,7 @@
  */
 
 namespace mpf\widgets\menu;
+use mpf\web\helpers\Html;
 
 /**
  * Description of Menu
@@ -73,6 +74,12 @@ class Menu extends \mpf\base\Widget {
      */
     protected $instantiatedItems = array();
 
+    /**
+     * Update this if you want to use a different dropdown icon
+     * @var string
+     */
+    public $dropDownIcon;
+
     public function init($config = array()) {
         $this->instantiatedItems = $this->loadItems($this->items);
         return parent::init($config);
@@ -111,7 +118,21 @@ class Menu extends \mpf\base\Widget {
             $this->htmlOptions['class'] = $this->htmlOptions['class'] . ' m-menu m-menu-' . $this->theme;
         }
         $menu = \mpf\web\helpers\Html::get()->tag('div', \mpf\web\helpers\Html::get()->tag('ul', $content, array('class' => 'm-menu-main-menu')), $this->htmlOptions);
-
+        $menu .= Html::get()->script("
+    $('li.m-menu-dropdown>a, li.m-menu-dropdown>span').click(function(e){
+        if ($(this.parentNode).hasClass('dropdownvisible')){
+            $(this.parentNode).removeClass('dropdownvisible');
+        } else {
+            $('li', this.parentNode.parentNode).removeClass('dropdownvisible');
+            $(this.parentNode).addClass('dropdownvisible');
+        }
+        e.preventDefault();
+        return false;
+    });
+    $(document).click(function(){
+        $('li').removeClass('dropdownvisible');
+    });
+        ");
         echo $menu;
     }
 
