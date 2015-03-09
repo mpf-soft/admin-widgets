@@ -98,7 +98,11 @@ SCRIPT;
     public static function parseText($original, $rules, $extraVars){
         $original = Html::get()->encode($original);
         foreach ($rules as $name => $rule){
-            $original = self::applyRule($original, $name, $rule);
+            if (is_array($rule)){
+                $original = self::applyRule($original, $name, $rule['rule'], $rule['callback']);
+            } else {
+                $original = self::applyRule($original, $name, $rule, []);
+            }
         }
         return str_replace(array_keys($extraVars), array_values($extraVars), $original);
     }
@@ -107,9 +111,10 @@ SCRIPT;
      * @param string $text
      * @param string $name
      * @param string|callback $rule
+     * @param callback[]|callback $methods
      * @return string
      */
-    protected static function applyRule($text, $name, $rule){
+    protected static function applyRule($text, $name, $rule, $methods){
         preg_match_all("#\\[$name\\](.*?)\\[\\/$name\\]#sm", $text, $matches);
         $list = [];
         foreach ($matches[0] as $k=>$original){
@@ -126,11 +131,14 @@ SCRIPT;
                 $txt= explode("|", $txt, $parts);
                 $newText= $rule;;
                 for ($i = 1; $i <= $parts; $i++ ){
+                    if (isset($methods['T' . $i])){
+                        $txt[$i-1] = call_user_func($methods['T'.$i], $txt[$i-1]);
+                    }
                     $newText = str_replace("{T{$i}}", $txt[$i-1], $newText);
                 }
                 $text = str_replace($original, $newText, $text);
             } else {
-                $text = str_replace($original, str_replace('{T}', $txt, $rule), $text);
+                $text = str_replace($original, str_replace('{T}', $methods?call_user_func($methods, $txt):$txt, $rule), $text);
             }
         }
         return $text;
