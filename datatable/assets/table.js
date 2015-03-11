@@ -95,8 +95,28 @@ $(document).ready(function () {
                     propagate : false
                 });
             }
-        })
-    })
+        });
+    });
+
+    $('.inline-edit-column').each(function(){
+        var _self = this;
+        $('a', this).click(function(){
+            $(this).hide();
+            $('form', this.parentNode).show();
+            return false;
+        });
+        $('.inline-save-button', this).click(function(){
+            console.log('save');
+            this.form.submit();
+            return false;
+        });
+        $('.inline-cancel-button', this).click(function(){
+            console.log('cancel');
+            $('form', _self).hide();
+            $('a', _self).show();
+            return false;
+        });
+    });
 });
 
 /**

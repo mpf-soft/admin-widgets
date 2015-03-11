@@ -139,6 +139,10 @@
     margin-left: 2px;
 }
 
+.m-datatable-default table td.inline-edit-column a{
+    float: none;
+}
+
 .m-datatable-default table img {
     max-height: 16px;
     margin-top: 3px;
