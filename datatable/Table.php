@@ -60,7 +60,7 @@ class Table extends \mpf\base\Widget {
     public $lastPageIcon = '%MPF_ASSETS%images/oxygen/16x16/actions/go-last-view.png';
 
     /**
-     * Folder name where all plugin assests are found. Is made an attribute
+     * Folder name where all plugin assets are found. Is made an attribute
      * so that it can be changed by any class that extends this plugin, or even
      * by config.
      * @var string
