@@ -209,8 +209,21 @@ abstract class Field extends \mpf\base\TranslatableObject {
         if ($value) {
             return $value;
         }
-        if ($this->form->model && is_object($this->form->model) && (!$this->form->model->isNewRecord() || $this->form->model->{$this->name})) {
-            return $this->form->model->{$this->name};
+        $key = null;
+        if (false !== strpos($this->name, '[')){
+            $name = explode('[', $this->name, 2);
+            $key = substr($name[1], 0, strlen($name[1]) - 1);
+            $name = $name[0];
+        } else {
+            $name = $this->name;
+        }
+        if ($this->form->model && is_object($this->form->model) && (!$this->form->model->isNewRecord() || $this->form->model->$name)) {
+            $val = $this->form->model->$name;
+            if (!is_null($key)){
+                return isset($val[$key])?$val[$key]:null;
+            } else {
+                return $val;
+            }
         }
         return $this->defaultValue;
     }
@@ -235,7 +248,7 @@ abstract class Field extends \mpf\base\TranslatableObject {
             $shortClass = explode('\\', $shortClass);
             $shortClass = $shortClass[count($shortClass) - 1];
             $name = explode('[', $this->name, 2);
-            return $shortClass . '[' . $name[0] . ']' . (isset($name[1]) ? $name[1] : '');
+            return $shortClass . '[' . $name[0] . ']' . (isset($name[1]) ? '[' . $name[1] : '');
         }
         return $this->name;
     }
