@@ -110,6 +110,12 @@ class InlineEdit extends Basic{
      */
     public $saveButtonIcon = '%MPF_ASSETS%images/oxygen/%SIZE%/actions/dialog-ok-apply.png';
 
+    /**
+     * For select types, if nothing is selected
+     * @var string
+     */
+    public $noValueDisplay = "-";
+
     public function init($config = []){
         if (!isset($this->htmlOptions['class'])){
             $this->htmlOptions['class'] = 'inline-edit-column';
@@ -127,8 +133,13 @@ class InlineEdit extends Basic{
      * @return string
      */
     public function getValue($row, Table $table) {
-        if (!$this->value)
-            return "<a href='#'>".$row->{$this->name}."</a>" . $this->getForm($row, $table);
+        if (!$this->value) {
+            if ($this->type == 'select'){
+                return "<a href='#'>" . (isset($this->options[$row->{$this->name}])?$this->options[$row->{$this->name}]:$this->noValueDisplay) . "</a>" . $this->getForm($row, $table);
+            } else {
+                return "<a href='#'>" . $row->{$this->name} . "</a>" . $this->getForm($row, $table);
+            }
+        }
         $res = '';
         eval("\$res = {$this->value};");
         return $res . $this->getForm($row, $table);
