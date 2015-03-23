@@ -142,7 +142,7 @@ class InlineEdit extends Basic{
         }
         $res = '';
         eval("\$res = {$this->value};");
-        return $res . $this->getForm($row, $table);
+        return "<a href='#'>" .$res . "</a>" . $this->getForm($row, $table);
     }
 
     protected function getForm($row, Table $table){
