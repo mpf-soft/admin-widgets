@@ -32,6 +32,7 @@ use mpf\web\AssetsPublisher;
 use mpf\web\helpers\Html;
 use \mpf\web\helpers\Html as HtmlHelper;
 use \mpf\web\helpers\Form as FormHelper;
+use mpf\WebApp;
 
 /**
  * Description of Form
@@ -66,19 +67,19 @@ class Form extends \mpf\base\Widget {
      * List of extra html options
      * @var string[string]
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * List of extra HTML option specific for Form tag
      * @var string[string]
      */
-    public $formHtmlOptions = array();
+    public $formHtmlOptions = [];
 
     /**
      * List of fields with corresponding options.
      * @var string[string]
      */
-    public $fields = array();
+    public $fields = [];
 
     /**
      * Details about the submit button. If not define form name will be used as name and a label will be generated
@@ -96,19 +97,28 @@ class Form extends \mpf\base\Widget {
      * Or can be simple string and then  that string will be used as name and a label will be generated from that.
      * @var string[]
      */
-    public $buttons = array();
+    public $buttons = [];
 
     /**
      * List of htmlOptions for buttons row
      * @var string[string]
      */
-    public $buttonsRowHtmlOptions = array();
+    public $buttonsRowHtmlOptions = [];
 
     /**
      * List of links to be used. They will be displayed on the button row.
-     * @var string[string]
+     * Example:
+     *  [
+     *         'Label' => 'http://www.url.here.com',
+     *         'Label2' => [
+     *              'href' => '#',
+     *              'onclick' => 'something_here();',
+     *              //... other options
+     *          ]
+     *  ]
+     * @var string[]
      */
-    public $links = array();
+    public $links = [];
 
     /**
      * Name of model class or the exact model object (for edits to get default value )
@@ -126,13 +136,19 @@ class Form extends \mpf\base\Widget {
      * List of hidden inputs and the value for each. Structure: name => value
      * @var array
      */
-    public $hiddenInputs = array();
+    public $hiddenInputs = [];
 
     /**
      * URL to assets folder
      * @var string
      */
     protected $assetsURL;
+
+    /**
+     * Form action. If null it will use current page.
+     * @var string|array
+     */
+    public $action;
 
     public function publishAssets(){
         $this->assetsURL = AssetsPublisher::get()->publishFolder(__DIR__ . DIRECTORY_SEPARATOR . $this->assetsFolder);
@@ -151,6 +167,12 @@ class Form extends \mpf\base\Widget {
         } else {
             $this->htmlOptions['class'] .= 'mform mform-' . $this->theme;
         }
+        if ($this->action){
+            $this->formHtmlOptions['action'] = is_string($this->action)?$this->action:WebApp::get()->request()->createURL( $this->action[0],
+                isset($this->action[1])?$this->action[1]:null,
+                isset($this->action[2])?$this->action[2]:[],
+                isset($this->action[3])?$this->action[3]:null);
+        }
         $this->formHtmlOptions['method'] = $this->method;
         return HtmlHelper::get()->tag('div', FormHelper::get()->openForm($this->formHtmlOptions) . $this->getContent() . FormHelper::get()->closeForm(), $this->htmlOptions);
     }
@@ -160,9 +182,9 @@ class Form extends \mpf\base\Widget {
      */
     protected function getContent() {
 
-        $hiddenInputs = array();
+        $hiddenInputs = [];
         foreach ($this->hiddenInputs as $name=>$value){
-            \mpf\web\helpers\Form::get()->hiddenInput($name, $value);
+             $hiddenInputs[] =  \mpf\web\helpers\Form::get()->hiddenInput($name, $value);
         }
         $hiddenInputs = implode("\n", $hiddenInputs);
 
@@ -181,10 +203,10 @@ class Form extends \mpf\base\Widget {
             }
         }
 
-        $buttons = array();
+        $buttons = [];
 
         if ($this->submitButton) {
-            $buttons[] = $this->getButton(array('name' => $this->name, 'label' => $this->submitButton));
+            $buttons[] = $this->getButton(['name' => $this->name, 'label' => $this->submitButton]);
         } else {
             $buttons[] = $this->getButton($this->name);
         }
@@ -195,9 +217,13 @@ class Form extends \mpf\base\Widget {
         if (!isset($this->buttonsRowHtmlOptions['class'])) {
             $this->buttonsRowHtmlOptions['class'] = 'row-buttons';
         }
-        $links = array();
+        $links = [];
         foreach ($this->links as $label => $link) {
-            $links[] = Html::get()->link($link, $this->translate($label));
+            if (is_array($link)){
+                $links[] = Html::get()->link($link['href'], $label, $link);
+            } else {
+                $links[] = Html::get()->link($link, $this->translate($label));
+            }
         }
         $links = implode(' ', $links);
         return $hiddenInputs . implode("\n", $fields) . HtmlHelper::get()->tag('div', $links . implode("\n", $buttons), $this->buttonsRowHtmlOptions);
