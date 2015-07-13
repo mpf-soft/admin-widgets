@@ -27,6 +27,7 @@ class Uploader extends Widget {
      *              "deleteType" => "DELETE" // optional;
      *          ];
      *  }
+     *
      * Must return file name or false if for some reason it wasn't valid.
      * @var callback
      */
@@ -89,6 +90,12 @@ class Uploader extends Widget {
     public $jsSource = "{VENDOR}blueimp/jQuery-File-Upload";
 
     /**
+     * Set it to true from the page acessed by js object;
+     * @var bool
+     */
+    public $handleRequest  = false;
+
+    /**
      * It will take care of upload and delete requests;
      * @param array $config
      * @return bool
@@ -99,17 +106,46 @@ class Uploader extends Widget {
         if (!$this->dataUrl) {
             $this->dataUrl = WebApp::get()->request()->getCurrentURL(); // if dataUrl is not set then current URL will be used;
         }
-        $this->handleUploads();
-        $this->handleDeletes();
+        if ($this->handleRequest){
+            $this->_handle();
+            die();
+        }
+
         return true;
+    }
+
+    protected function _handle(){
+        switch ($this->get_server_var('REQUEST_METHOD')) {
+            case 'OPTIONS':
+            case 'HEAD':
+                //$this->head();
+                break;
+            case 'GET':
+                //$this->get($this->options['print_response']);
+                break;
+            case 'PATCH':
+            case 'PUT':
+            case 'POST':
+                $this->handleUploads();
+                //$this->post($this->options['print_response']);
+                break;
+            case 'DELETE':
+                $this->handleDeletes();
+                //$this->delete($this->options['print_response']);
+                break;
+            default:
+                $this->header('HTTP/1.1 405 Method Not Allowed');
+        }
     }
 
     protected function handleUploads() {
 
+        die();
     }
 
     protected function handleDeletes() {
 
+        die();
     }
 
     /**
