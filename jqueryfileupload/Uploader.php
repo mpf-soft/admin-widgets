@@ -25,29 +25,23 @@ class Uploader extends Widget {
     /**
      * A method that will be called for each uploaded file.
      * Example:
-     *  function ($tempPath, $originalName){
-     *         return [
-     *              "name" => "Name",
-     *              "url" => "",
-     *              "thumbnailUrl" => "",
-     *              "deleteUrl" => "", // optional, if it's not the same one
-     *              "deleteType" => "DELETE" // optional;
-     *          ];
+     *  function ($path, $file){ //file is an object with file details
+     *         return $name
      *  }
      *
      * Must return file name or false if for some reason it wasn't valid.
-     * @var callback
+     * @var callable
      */
     public $uploadCallback;
 
     /**
      * A method that will be called when a request to delete a photo is made;
      * Example:
-     *  function ($name, $version) {
+     *  function ($name) {
      *      return true;
      *  }
      * Must return true|false in case it was deleted or not.
-     * @var
+     * @var callable
      */
     public $deleteCallback;
 

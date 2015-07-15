@@ -92,23 +92,24 @@ class Handler extends BaseHandler {
         $this->generate_response($response);
     }
 
-    public function getUploadPath($fileName){
-        return $this->options['upload_dir'];
-    }
-
     public function delete() {
         $file_names = $this->get_file_names_params();
         if (empty($file_names)) {
-            $file_names = array($this->get_file_name_param());
+            $file_names = [$this->get_file_name_param()];
         }
-        $response = array();
+        $response = [];
         foreach ($file_names as $file_name) {
-            $file_path = $this->get_upload_path($file_name);
+            $file_path = $this->getUploadPath($file_name);
             $success = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
             if ($success) {
+                $callback = $this->uploader->deleteCallback;
+                $callback($file_name);
                 foreach ($this->options['image_versions'] as $version => $options) {
                     if (!empty($version)) {
-                        $this->uploader->deleteCallback($file_name, $version);
+                        $file = $this->getUploadPath($file_name, $version);
+                        if (is_file($file)) {
+                            unlink($file);
+                        }
                     }
                 }
             }
@@ -120,17 +121,17 @@ class Handler extends BaseHandler {
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
                                           $index = null, $content_range = null) {
         $file = new \stdClass();
+        $file->size = $this->fix_integer_overflow((int)$size);
         $file->name = $this->get_file_name($uploaded_file, $name, $size, $type, $error,
             $index, $content_range);
-        $file->size = $this->fix_integer_overflow((int)$size);
         $file->type = $type;
         if ($this->validate($uploaded_file, $file, $error, $index)) {
-            $this->handle_form_data($file, $index);
-            $upload_dir = $this->get_upload_path();
+            $upload_dir = $this->getUploadPath();
             if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, $this->options['mkdir_mode'], true);
             }
-            $file_path = $this->get_upload_path($file->name);
+
+            $file_path = $this->getUploadPath($file->name);
             $append_file = $content_range && is_file($file_path) &&
                 $file->size > $this->get_file_size($file_path);
             if ($uploaded_file && is_uploaded_file($uploaded_file)) {
@@ -154,9 +155,11 @@ class Handler extends BaseHandler {
             }
             $file_size = $this->get_file_size($file_path, $append_file);
             if ($file_size === $file->size) {
-                $file->url = $this->get_download_url($file->name);
+                $file->url = $this->getDownloadURL($file->name);
                 if ($this->is_valid_image_file($file_path)) {
                     $this->handle_image_file($file_path, $file);
+                    $callback =$this->uploader->uploadCallback;
+                    $callback($file_path, $file);
                 }
             } else {
                 $file->size = $file_size;
@@ -166,6 +169,8 @@ class Handler extends BaseHandler {
                 }
             }
             $this->set_additional_file_properties($file);
+        } else {
+            echo "error validating file";
         }
         return $file;
     }
