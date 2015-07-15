@@ -115,6 +115,11 @@ class Uploader extends Widget {
     public $uploadHandlerClass = '\mpf\widgets\jqueryfileupload\Handler';
 
     /**
+     * Method names for each event to be handled;
+     */
+    public $jsEventsHandlers = [];
+
+    /**
      * It will take care of upload and delete requests;
      * @param array $config
      * @return bool
@@ -160,6 +165,13 @@ class Uploader extends Widget {
         die();
     }
 
+    protected function getJSEvents(){
+        $final = "";
+        foreach ($this->jsEventsHandlers as $event=>$method){
+            $final .= ".on('$event', function(e, data) { $method(e, data); })";
+        }
+    }
+
     /**
      * Returns the HTML code for the element.
      * @return string
@@ -167,6 +179,7 @@ class Uploader extends Widget {
     public function display() {
         $source = str_replace(['{VENDOR}', '{APP_ROOT}'], [LIBS_FOLDER, APP_ROOT], $this->jsSource);
         $url = AssetsPublisher::get()->publishFolder($source);
+        $events = $this->getJSEvents();
         $r = Form::get()->input($this->name . '[]', 'file', null, [
                 'id' => $this->id,
                 'data-url' => $this->dataUrl,
@@ -183,7 +196,7 @@ class Uploader extends Widget {
                 $('<p/>').text(file.name).appendTo($(\"#{$this->resultsId}\"));
             });
         }
-    });
+    })$events;
 });");
         if ($this->generateResultsDiv) {
             $r .= Html::get()->tag("div", "", ["id" => $this->resultsId]);
