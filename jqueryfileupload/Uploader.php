@@ -73,16 +73,6 @@ class Uploader extends Widget {
      * @var bool
      */
     public $generateResultsDiv = true;
-    /**
-     * If set to true it will also generate a progress bar.
-     * @var bool
-     */
-    public $generateProgressBar = true;
-    /**
-     * Id used for the generated progress bar
-     * @var string
-     */
-    public $progressBarId = "upload-progress";
 
     /**
      * Location of the jQuery-File-Upload code. By default(when using composer) it will be in vendor folder/blueimp/jQuery-FileUpload
@@ -116,8 +106,17 @@ class Uploader extends Widget {
 
     /**
      * Method names for each event to be handled;
+     * Params for each event method (e, data)
+     * @url https://github.com/blueimp/jQuery-File-Upload
+     * Possible events:
+     * fileuploadadd
+     * fileuploadprocessalways
+     * fileuploadprogressall
+     * fileuploaddone
+     * fileuploadfail
      */
     public $jsEventsHandlers = [];
+
 
     /**
      * It will take care of upload and delete requests;
@@ -165,6 +164,10 @@ class Uploader extends Widget {
         die();
     }
 
+    /**
+     * JS code to add events;
+     * @return string
+     */
     protected function getJSEvents(){
         $final = "";
         foreach ($this->jsEventsHandlers as $event=>$method){
@@ -191,19 +194,16 @@ class Uploader extends Widget {
             . Html::get()->scriptFile($url . "js/jquery.fileupload.js")
             . Html::get()->script("\$(function () {
     \$('#{$this->id}').fileupload({
-        dataType: 'json',
+        dataType: 'json' " . (isset($this->jsEventsHandlers['fileuploaddone'])?'': ",
         done: function (e, data) {
             $.each(data.result.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo($(\"#{$this->resultsId}\"));
             });
-        }
+        }") . "
     })$events;
 });");
         if ($this->generateResultsDiv) {
             $r .= Html::get()->tag("div", "", ["id" => $this->resultsId]);
-        }
-        if ($this->generateProgressBar) {
-            $r .= Html::get()->tag("div", Html::get()->tag("div", "", ["class" => "bar", "style" => "width: 0%;"]), ["id" => $this->progressBarId]);
         }
         return $r;
     }
