@@ -9,12 +9,19 @@
 namespace mpf\widgets\jqueryfileupload;
 
 use mpf\base\Widget;
+use mpf\loggers\DevLogger;
 use mpf\web\AssetsPublisher;
 use mpf\web\helpers\Form;
 use mpf\web\helpers\Html;
 use mpf\WebApp;
 
 class Uploader extends Widget {
+    /**
+     * A list of extra options as presented in https://github.com/blueimp/jQuery-File-Upload
+     * @var array
+     */
+    public $options = [];
+
     /**
      * A method that will be called for each uploaded file.
      * Example:
@@ -36,7 +43,7 @@ class Uploader extends Widget {
     /**
      * A method that will be called when a request to delete a photo is made;
      * Example:
-     *  function ($name) {
+     *  function ($name, $version) {
      *      return true;
      *  }
      * Must return true|false in case it was deleted or not.
@@ -93,7 +100,25 @@ class Uploader extends Widget {
      * Set it to true from the page acessed by js object;
      * @var bool
      */
-    public $handleRequest  = false;
+    public $handleRequest = false;
+
+    /**
+     * Path to upload folder
+     * @var string
+     */
+    public $uploadDir;
+
+    /**
+     * URL to upload folder
+     * @var string
+     */
+    public $uploadURL;
+
+    /**
+     * Class of handler used for uploads.
+     * @var string
+     */
+    public $uploadHandlerClass = '\mpf\widgets\jqueryfileupload\Handler';
 
     /**
      * It will take care of upload and delete requests;
@@ -106,7 +131,7 @@ class Uploader extends Widget {
         if (!$this->dataUrl) {
             $this->dataUrl = WebApp::get()->request()->getCurrentURL(); // if dataUrl is not set then current URL will be used;
         }
-        if ($this->handleRequest){
+        if ($this->handleRequest) {
             $this->_handle();
             die();
         }
@@ -114,37 +139,30 @@ class Uploader extends Widget {
         return true;
     }
 
-    protected function _handle(){
-        switch ($this->get_server_var('REQUEST_METHOD')) {
+    protected function _handle() {
+        DevLogger::$ignoreOutput = true;
+        $handler = $this->uploadHandlerClass;
+        $handler = new $handler(['uploader' => $this, 'options' => $this->options]);
+        /* @var $handler Handler */
+        switch ($_SERVER['REQUEST_METHOD']) {
             case 'OPTIONS':
             case 'HEAD':
-                //$this->head();
+                $handler->head();
                 break;
             case 'GET':
-                //$this->get($this->options['print_response']);
+                $handler->get();
                 break;
             case 'PATCH':
             case 'PUT':
             case 'POST':
-                $this->handleUploads();
-                //$this->post($this->options['print_response']);
+                $handler->post();
                 break;
             case 'DELETE':
-                $this->handleDeletes();
-                //$this->delete($this->options['print_response']);
+                $handler->delete();
                 break;
             default:
-                $this->header('HTTP/1.1 405 Method Not Allowed');
+                header('HTTP/1.1 405 Method Not Allowed');
         }
-    }
-
-    protected function handleUploads() {
-
-        die();
-    }
-
-    protected function handleDeletes() {
-
         die();
     }
 
