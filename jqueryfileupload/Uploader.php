@@ -170,6 +170,7 @@ class Uploader extends Widget {
         foreach ($this->jsEventsHandlers as $event=>$method){
             $final .= ".on('$event', function(e, data) { $method(e, data); })";
         }
+        return $final;
     }
 
     /**
