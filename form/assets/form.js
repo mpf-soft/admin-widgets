@@ -24,10 +24,17 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 $(document).ready(function(){
-    $('.birthday').change(function(){
+    mpfFormOnLoadInit();
+});
+
+function mpfFormOnLoadInit() {
+
+    $('.birthday').change(function () {
         var parent = this.parentNode;
         $('.birthday_value', parent).val($('.bday-year').val() + '-' + $('.bday-month').val() + '-' + $('.bday-day').val());
-    })
-});
+    });
+
+    $('.autocomplete').autocomplete();
+
+}
