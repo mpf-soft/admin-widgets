@@ -34,7 +34,8 @@ function mpfFormOnLoadInit() {
         var parent = this.parentNode;
         $('.birthday_value', parent).val($('.bday-year').val() + '-' + $('.bday-month').val() + '-' + $('.bday-day').val());
     });
-
-    $('.autocomplete').autocomplete();
+    if ($('.autocomplete').length) {
+        $('.autocomplete').autocomplete();
+    }
 
 }
