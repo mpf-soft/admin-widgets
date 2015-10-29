@@ -38,7 +38,8 @@ use mpf\widgets\datatable\Table;
  *
  * @author mirel
  */
-class Basic extends \mpf\base\Object {
+class Basic extends \mpf\base\Object
+{
 
     /**
      * Name of the model. Sent by Table widget.
@@ -129,7 +130,8 @@ class Basic extends \mpf\base\Object {
      * Return true if column is visible, false if not.
      * @return boolean
      */
-    public function isVisible() {
+    public function isVisible()
+    {
         return $this->visible;
     }
 
@@ -139,7 +141,8 @@ class Basic extends \mpf\base\Object {
      * there it will generate one using the name of the column.
      * @return string
      */
-    public function getLabel() {
+    public function getLabel()
+    {
         if ($this->label)
             return $this->label;
         return $this->dataProvider->getLabel($this->name);
@@ -151,7 +154,8 @@ class Basic extends \mpf\base\Object {
      * @param Table $table
      * @return string
      */
-    public function getValue($row, Table $table) {
+    public function getValue($row, Table $table)
+    {
         if (!$this->value)
             return $row->{$this->name};
         $res = '';
@@ -163,7 +167,8 @@ class Basic extends \mpf\base\Object {
      * Get HTML table filter for selected column;
      * @return string
      */
-    public function getFilter() {
+    public function getFilter()
+    {
         if (false === $this->filter) {
             return '';
         }
@@ -177,7 +182,8 @@ class Basic extends \mpf\base\Object {
      * Return html options for header;
      * @return string
      */
-    public function getHeaderHtmlOptions() {
+    public function getHeaderHtmlOptions()
+    {
         $r = '';
         foreach ($this->headerHtmlOptions as $k => $v)
             $r .= "$k = '$v' ";
@@ -188,7 +194,8 @@ class Basic extends \mpf\base\Object {
      * Return html options for filter;
      * @return string
      */
-    public function getFilterHtmlOptions() {
+    public function getFilterHtmlOptions()
+    {
         $r = '';
         foreach ($this->filterHtmlOptions as $k => $v)
             $r .= "$k = '$v' ";
@@ -199,7 +206,8 @@ class Basic extends \mpf\base\Object {
      * Return html options for cell;
      * @return string
      */
-    public function getHtmlOptions() {
+    public function getHtmlOptions()
+    {
         $r = '';
         foreach ($this->htmlOptions as $k => $v)
             $r .= "$k = '$v' ";
@@ -211,7 +219,8 @@ class Basic extends \mpf\base\Object {
      * @param Table $table
      * @return string
      */
-    public function getHeaderCode(Table $table) {
+    public function getHeaderCode(Table $table)
+    {
         $label = $this->getLabel();
         if (!$this->order) {
             return $label;
@@ -219,18 +228,18 @@ class Basic extends \mpf\base\Object {
         $order = $this->dataProvider->getOrder();
         $prefix = '';
 
-        $this->iconArrowUp = str_replace(array('%DATATABLE_ASSETS%', '%SIZE%'), array($table->getAssetsURL(), ($this->iconSize.'x'.$this->iconSize)), $this->iconArrowUp);
-        $this->iconArrowDown = str_replace(array('%DATATABLE_ASSETS%', '%SIZE%'), array($table->getAssetsURL(), ($this->iconSize.'x'.$this->iconSize)), $this->iconArrowDown);
-        if ('%MPF_ASSETS%' == substr($this->iconArrowUp, 0, 12)){
+        $this->iconArrowUp = str_replace(array('%DATATABLE_ASSETS%', '%SIZE%'), array($table->getAssetsURL(), ($this->iconSize . 'x' . $this->iconSize)), $this->iconArrowUp);
+        $this->iconArrowDown = str_replace(array('%DATATABLE_ASSETS%', '%SIZE%'), array($table->getAssetsURL(), ($this->iconSize . 'x' . $this->iconSize)), $this->iconArrowDown);
+        if ('%MPF_ASSETS%' == substr($this->iconArrowUp, 0, 12)) {
             $this->iconArrowUp = AssetsPublisher::get()->mpfAssetFile(substr($this->iconArrowUp, 12));
         }
-        if ('%MPF_ASSETS%' == substr($this->iconArrowDown, 0, 12)){
+        if ('%MPF_ASSETS%' == substr($this->iconArrowDown, 0, 12)) {
             $this->iconArrowDown = AssetsPublisher::get()->mpfAssetFile(substr($this->iconArrowDown, 12));
         }
         if ($order[0] == $this->name) {
             $prefix = ('ASC' == $order[1]) ? Html::get()->image($this->iconArrowUp, 'Order Descendent', ['class' => 'order-by-img']) : Html::get()->image($this->iconArrowDown, 'Order Ascendent', ['class' => 'order-by-img']);
         }
-        return $this->dataProvider->getColumnOrderLink($this->name, $prefix . $label);
+        return $this->dataProvider->getColumnOrderLink($this->order ?: '`' . $this->name . '`', $prefix . $label);
     }
 
 }
