@@ -236,7 +236,7 @@ class Basic extends \mpf\base\Object
         if ('%MPF_ASSETS%' == substr($this->iconArrowDown, 0, 12)) {
             $this->iconArrowDown = AssetsPublisher::get()->mpfAssetFile(substr($this->iconArrowDown, 12));
         }
-        if ($order[0] == $this->name) {
+        if ($order[0] == ($this->order ?: '`' . $this->name . '`')) {
             $prefix = ('ASC' == $order[1]) ? Html::get()->image($this->iconArrowUp, 'Order Descendent', ['class' => 'order-by-img']) : Html::get()->image($this->iconArrowDown, 'Order Ascendent', ['class' => 'order-by-img']);
         }
         return $this->dataProvider->getColumnOrderLink($this->order ?: '`' . $this->name . '`', $prefix . $label);
