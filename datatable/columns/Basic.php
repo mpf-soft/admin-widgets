@@ -38,8 +38,7 @@ use mpf\widgets\datatable\Table;
  *
  * @author mirel
  */
-class Basic extends \mpf\base\Object
-{
+class Basic extends \mpf\base\Object {
 
     /**
      * Name of the model. Sent by Table widget.
@@ -68,19 +67,19 @@ class Basic extends \mpf\base\Object
 
     /**
      * List of html options for current column
-     * @var string[string]
+     * @var string[]
      */
     public $htmlOptions = array();
 
     /**
      * List of html options for header column
-     * @var string[string]
+     * @var string[]
      */
     public $headerHtmlOptions = array();
 
     /**
      * List of html options for filter column
-     * @var string[string]
+     * @var string[]
      */
     public $filterHtmlOptions = array();
 
@@ -103,7 +102,7 @@ class Basic extends \mpf\base\Object
     public $noValueText = '&nbsp;';
 
     /**
-     * Set it to false to not allow order or to string to specifiy custom order column name.
+     * Set it to false to not allow order or to string to specify custom order column name.
      * @var boolean|string
      */
     public $order = true;
@@ -130,8 +129,7 @@ class Basic extends \mpf\base\Object
      * Return true if column is visible, false if not.
      * @return boolean
      */
-    public function isVisible()
-    {
+    public function isVisible() {
         return $this->visible;
     }
 
@@ -141,8 +139,7 @@ class Basic extends \mpf\base\Object
      * there it will generate one using the name of the column.
      * @return string
      */
-    public function getLabel()
-    {
+    public function getLabel() {
         if ($this->label)
             return $this->label;
         return $this->dataProvider->getLabel($this->name);
@@ -154,8 +151,7 @@ class Basic extends \mpf\base\Object
      * @param Table $table
      * @return string
      */
-    public function getValue($row, Table $table)
-    {
+    public function getValue($row, Table $table) {
         if (!$this->value)
             return $row->{$this->name};
         $res = '';
@@ -167,8 +163,7 @@ class Basic extends \mpf\base\Object
      * Get HTML table filter for selected column;
      * @return string
      */
-    public function getFilter()
-    {
+    public function getFilter() {
         if (false === $this->filter) {
             return '';
         }
@@ -182,8 +177,7 @@ class Basic extends \mpf\base\Object
      * Return html options for header;
      * @return string
      */
-    public function getHeaderHtmlOptions()
-    {
+    public function getHeaderHtmlOptions() {
         $r = '';
         foreach ($this->headerHtmlOptions as $k => $v)
             $r .= "$k = '$v' ";
@@ -194,8 +188,7 @@ class Basic extends \mpf\base\Object
      * Return html options for filter;
      * @return string
      */
-    public function getFilterHtmlOptions()
-    {
+    public function getFilterHtmlOptions() {
         $r = '';
         foreach ($this->filterHtmlOptions as $k => $v)
             $r .= "$k = '$v' ";
@@ -206,8 +199,7 @@ class Basic extends \mpf\base\Object
      * Return html options for cell;
      * @return string
      */
-    public function getHtmlOptions()
-    {
+    public function getHtmlOptions() {
         $r = '';
         foreach ($this->htmlOptions as $k => $v)
             $r .= "$k = '$v' ";
@@ -219,8 +211,7 @@ class Basic extends \mpf\base\Object
      * @param Table $table
      * @return string
      */
-    public function getHeaderCode(Table $table)
-    {
+    public function getHeaderCode(Table $table) {
         $label = $this->getLabel();
         if (!$this->order) {
             return $label;
