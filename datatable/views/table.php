@@ -38,7 +38,7 @@
         </tr>
         <?php if (count($this->dataProvider->getData())) { ?>
             <?php foreach ($this->dataProvider->getData() as $row) { ?>
-                <tr class="m-datatable-row">
+                <tr class="m-datatable-row <?= $this->getRowClass() ?>">
                     <?php if ($this->multiSelect && count($this->multiSelectActions)) { ?>
                         <td><input type="checkbox" name="ids[]"
                                    value="<?= $row->{$this->dataProvider->getPkKey()}; ?>"/></td>

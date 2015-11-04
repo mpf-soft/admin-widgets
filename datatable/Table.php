@@ -157,6 +157,13 @@ class Table extends \mpf\base\Widget {
      */
     public $multiSelectActions = array();
 
+    /**
+     * An expression to be eval() in order to get a custom html class for each row.
+     * you can use $row to get info about current row.
+     * @var string
+     */
+    public $rowClass = "";
+
 // =========================== PROTECTED:  ==================================
 
     /**
@@ -189,6 +196,19 @@ class Table extends \mpf\base\Widget {
      */
     public function getAssetsURL() {
         return $this->assetsURL;
+    }
+
+    /**
+     * Get extra class for current row
+     * @param $row
+     * @return string
+     */
+    protected function getRowClass($row){
+        if (!$this->rowClass)
+            return "";
+        $res = '';
+        eval("\$res = {$this->rowClass};");
+        return $res;
     }
 
     /**
