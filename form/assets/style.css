@@ -48,6 +48,31 @@
     float:left;
 }
 
+.mform .form-autocomplete-list{
+    display:none;
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 0 3px #888;
+    border-radius: 4px;
+    overflow: auto;
+    max-height: 200px;
+}
+
+.mform .form-autocomplete-list ul li{
+    display:block;
+    line-height: 30px;
+    padding: 0 5px;
+    cursor:pointer;
+}
+
+.mform .form-autocomplete-list ul li.hidden{
+    display: none;
+}
+
+.mform .form-autocomplete-list ul li.selected{
+    background: #eaeaea;
+}
+
 .mform-default{
     float:left;
     margin-left: 1%;
