@@ -139,7 +139,8 @@
     margin-left: 2px;
 }
 
-.m-datatable-default table td.inline-edit-column a{
+.m-datatable-default table td.inline-edit-column .inline-edit-column-edit-link{
+    cursor: pointer;
     float: none;
 }
 

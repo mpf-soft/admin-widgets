@@ -100,7 +100,7 @@ $(document).ready(function () {
 
     $('.inline-edit-column').each(function(){
         var _self = this;
-        $('a', this).click(function(){
+        $('.inline-edit-column-edit-link', this).click(function(){
             $(this).hide();
             $('form', this.parentNode).show();
             return false;
@@ -113,7 +113,7 @@ $(document).ready(function () {
         $('.inline-cancel-button', this).click(function(){
             console.log('cancel');
             $('form', _self).hide();
-            $('a', _self).show();
+            $('.inline-edit-column-edit-link', _self).show();
             return false;
         });
     });

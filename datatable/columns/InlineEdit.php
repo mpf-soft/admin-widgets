@@ -7,6 +7,7 @@
  */
 
 namespace mpf\widgets\datatable\columns;
+
 use mpf\web\AssetsPublisher;
 use mpf\web\helpers\Html;
 use mpf\widgets\datatable\Table;
@@ -18,7 +19,8 @@ use mpf\web\helpers\Form;
  * It will create a
  * @package mpf\widgets\datatable\columns
  */
-class InlineEdit extends Basic{
+class InlineEdit extends Basic
+{
 
     /**
      * Type of edit. Can have the following values:
@@ -116,8 +118,22 @@ class InlineEdit extends Basic{
      */
     public $noValueDisplay = "-";
 
-    public function init($config = []){
-        if (!isset($this->htmlOptions['class'])){
+    /**
+     * Set this to false if current user can't edit.
+     * @var bool
+     */
+    public $canEdit = true;
+
+
+    /**
+     * Element for value only; On click on it the form will appear
+     * @var string
+     */
+    public $linkElement = 'a';
+
+    public function init($config = [])
+    {
+        if (!isset($this->htmlOptions['class'])) {
             $this->htmlOptions['class'] = 'inline-edit-column';
         } else {
             $this->htmlOptions['class'] .= ' inline-edit-column';
@@ -132,24 +148,24 @@ class InlineEdit extends Basic{
      * @param Table $table
      * @return string
      */
-    public function getValue($row, Table $table) {
-        if (!$this->value) {
-            if ($this->type == 'select'){
-                return "<a href='#'>" . (isset($this->options[$row->{$this->name}])?$this->options[$row->{$this->name}]:$this->noValueDisplay) . "</a>" . $this->getForm($row, $table);
-            } else {
-                return "<a href='#'>" . $row->{$this->name} . "</a>" . $this->getForm($row, $table);
-            }
-        }
+    public function getValue($row, Table $table)
+    {
         $res = '';
-        eval("\$res = {$this->value};");
-        return "<a href='#'>" .$res . "</a>" . $this->getForm($row, $table);
+        if ($this->value) {
+            eval("\$res = {$this->value};");
+        } else {
+            $res = ('select' == $this->type) ? ((isset($this->options[$row->{$this->name}]) ? $this->options[$row->{$this->name}] : $this->noValueDisplay)) : $row->{$this->name};
+        }
+        return $this->canEdit ? "<{$this->linkElement} class='inline-edit-column-edit-link' href='#'>" . $res . "</{$this->linkElement}>" . $this->getForm($row, $table) : $res;
+
     }
 
-    protected function getForm($row, Table $table){
-        $this->formHTMLOptions['style'] = (isset($this->formHTMLOptions['style'])?$this->formHTMLOptions['style']:'').'display:none;';
+    protected function getForm($row, Table $table)
+    {
+        $this->formHTMLOptions['style'] = (isset($this->formHTMLOptions['style']) ? $this->formHTMLOptions['style'] : '') . 'display:none;';
         $this->formHTMLOptions['method'] = 'post';
         $form = Form::get()->openForm($this->formHTMLOptions);
-        switch ($this->type){
+        switch ($this->type) {
             case 'input':
             case 'password':
             case 'email':
@@ -166,23 +182,23 @@ class InlineEdit extends Basic{
                 break;
         }
         $form .= Form::get()->hiddenInput($this->key, $row->{$this->key});
-        $this->saveButtonIcon = str_replace(array('%DATATABLE_ASSETS%', '%SIZE%'), array($table->getAssetsURL(), ($this->iconSize.'x'.$this->iconSize)), $this->saveButtonIcon);
-        $this->cancelButtonIcon = str_replace(array('%DATATABLE_ASSETS%', '%SIZE%'), array($table->getAssetsURL(), ($this->iconSize.'x'.$this->iconSize)), $this->cancelButtonIcon);
-        if ('%MPF_ASSETS%' == substr($this->saveButtonIcon, 0, 12)){
+        $this->saveButtonIcon = str_replace(array('%DATATABLE_ASSETS%', '%SIZE%'), array($table->getAssetsURL(), ($this->iconSize . 'x' . $this->iconSize)), $this->saveButtonIcon);
+        $this->cancelButtonIcon = str_replace(array('%DATATABLE_ASSETS%', '%SIZE%'), array($table->getAssetsURL(), ($this->iconSize . 'x' . $this->iconSize)), $this->cancelButtonIcon);
+        if ('%MPF_ASSETS%' == substr($this->saveButtonIcon, 0, 12)) {
             $this->saveButtonIcon = AssetsPublisher::get()->mpfAssetFile(substr($this->saveButtonIcon, 12));
         }
-        if ('%MPF_ASSETS%' == substr($this->cancelButtonIcon, 0, 12)){
+        if ('%MPF_ASSETS%' == substr($this->cancelButtonIcon, 0, 12)) {
             $this->cancelButtonIcon = AssetsPublisher::get()->mpfAssetFile(substr($this->cancelButtonIcon, 12));
         }
 
-        if ($this->showSaveButton){
+        if ($this->showSaveButton) {
             $form .= Form::get()->imageButton($this->saveButtonIcon, $this->saveButtonLabel, '', '', ['class' => 'inline-save-button']);
         }
-        if ($this->showCancelButton){
+        if ($this->showCancelButton) {
             $form .= Form::get()->imageButton($this->cancelButtonIcon, $this->cancelButtonLabel, '', '', ['class' => 'inline-cancel-button']);
         }
 
-        return $form.Form::get()->closeForm();
+        return $form . Form::get()->closeForm();
     }
 
 }
