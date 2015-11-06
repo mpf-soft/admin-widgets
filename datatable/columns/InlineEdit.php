@@ -10,6 +10,7 @@ namespace mpf\widgets\datatable\columns;
 
 use mpf\web\AssetsPublisher;
 use mpf\web\helpers\Html;
+use mpf\WebApp;
 use mpf\widgets\datatable\Table;
 use mpf\web\helpers\Form;
 
@@ -19,8 +20,7 @@ use mpf\web\helpers\Form;
  * It will create a
  * @package mpf\widgets\datatable\columns
  */
-class InlineEdit extends Basic
-{
+class InlineEdit extends Basic {
 
     /**
      * Type of edit. Can have the following values:
@@ -124,6 +124,18 @@ class InlineEdit extends Basic
      */
     public $canEdit = true;
 
+    /**
+     * Will create an ajax request. Must return "ok" if all went all or the message to be displayed in case of error;
+     * @var bool
+     */
+    public $ajax = false;
+
+    /**
+     * If not set current URL will be used;
+     * @var string
+     */
+    public $url;
+
 
     /**
      * Element for value only; On click on it the form will appear
@@ -131,8 +143,7 @@ class InlineEdit extends Basic
      */
     public $linkElement = 'a';
 
-    public function init($config = [])
-    {
+    public function init($config = []) {
         if (!isset($this->htmlOptions['class'])) {
             $this->htmlOptions['class'] = 'inline-edit-column';
         } else {
@@ -148,8 +159,7 @@ class InlineEdit extends Basic
      * @param Table $table
      * @return string
      */
-    public function getValue($row, Table $table)
-    {
+    public function getValue($row, Table $table) {
         $res = '';
         if ($this->value) {
             eval("\$res = {$this->value};");
@@ -160,10 +170,11 @@ class InlineEdit extends Basic
 
     }
 
-    protected function getForm($row, Table $table)
-    {
+    protected function getForm($row, Table $table) {
         $this->formHTMLOptions['style'] = (isset($this->formHTMLOptions['style']) ? $this->formHTMLOptions['style'] : '') . 'display:none;';
         $this->formHTMLOptions['method'] = 'post';
+        $this->formHTMLOptions['is-ajax'] = ($this->ajax ? '1' : '0');
+        $this->formHTMLOptions['action'] = $this->url ? (is_array($this->url) ? WebApp::get()->request()->createURL($this->url[0], $this->url[1], isset($this->url[2]) ? $this->url[2] : [], isset($this->url[3]) ? $this->url[3] : null) : $this->url) : '';
         $form = Form::get()->openForm($this->formHTMLOptions);
         switch ($this->type) {
             case 'input':

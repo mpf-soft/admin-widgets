@@ -30,21 +30,21 @@ $(document).ready(function () {
         $('<form>').attr('method', 'POST')
             .appendTo(this.parentNode)
             .html('<input type="hidden" name="' + $('.m-datatable:first').attr('data-token-key') + '" value="' + $('.m-datatable:first').attr('data-token-value') + '" />'
-            +'<input type="hidden" name="' + $(this).attr('name') + '" value="' + $(this).val() + '" />')
+                + '<input type="hidden" name="' + $(this).attr('name') + '" value="' + $(this).val() + '" />')
             .submit();
     });
 
     $('.m-datatable table').each(function () {
-        if ($(this).attr('multiselect') == 'on'){
-            var _table= this;
-            $('tr', this).find('th:first').find('input').click(function(){
-                if ($(this).attr('checked')){
-                    $(_table).find('tr.m-datatable-row').each(function(){
+        if ($(this).attr('multiselect') == 'on') {
+            var _table = this;
+            $('tr', this).find('th:first').find('input').click(function () {
+                if ($(this).attr('checked')) {
+                    $(_table).find('tr.m-datatable-row').each(function () {
                         $($(this).find('td').first()).find('input').attr('checked', true);
                         $(this).addClass('selected');
                     });
                 } else {
-                    $(_table).find('tr').each(function(){
+                    $(_table).find('tr').each(function () {
                         $($(this).find('td').first()).find('input').attr('checked', false);
                         $(this).removeClass('selected');
                     });
@@ -52,31 +52,31 @@ $(document).ready(function () {
             });
         }
     });
-    $('.mdata-table-post-link').click(function(){
-        if ($(this).attr('post-confirmation')){
-            if (!confirm($(this).attr('post-confirmation'))){
+    $('.mdata-table-post-link').click(function () {
+        if ($(this).attr('post-confirmation')) {
+            if (!confirm($(this).attr('post-confirmation'))) {
                 return false;
             }
         }
         var fields = $.parseJSON($("<div/>").html($(this).attr('post-data')).text());
-        var form =$('<form>').appendTo(document.body).attr('method', 'post').attr('action', $(this).attr('href'));
+        var form = $('<form>').appendTo(document.body).attr('method', 'post').attr('action', $(this).attr('href'));
         $('<input>').attr('name', $('.m-datatable:first').attr('data-token-key')).val($('.m-datatable:first').attr('data-token-value')).appendTo(form);
-        $.each(fields, function(name, value){
+        $.each(fields, function (name, value) {
             $('<input>').attr('type', 'hidden').attr('name', name).attr('value', value).appendTo(form);
         });
         form.submit();
         return false;
     });
 
-    $('.m-datatable-multiselect').each(function(){
+    $('.m-datatable-multiselect').each(function () {
         var key = $(this).attr('multi-actions-key');
         var _self = this;
-        $('.m-datatable-multiactions a', this).click(function(){
-            if ($(this).attr('data-confirmation') && (!confirm($(this).attr('data-confirmation')))){
+        $('.m-datatable-multiactions a', this).click(function () {
+            if ($(this).attr('data-confirmation') && (!confirm($(this).attr('data-confirmation')))) {
                 return false;
             }
             var keys = mDataTable_GetSelected(_self);
-            if (keys.length == 0){
+            if (keys.length == 0) {
                 return false;
             }
 
@@ -84,38 +84,58 @@ $(document).ready(function () {
             return false;
         });
 
-        $('.m-datatable-multiactions:first a', this).each(function(){
-            if ($(this).attr('data-shortcut')){
+        $('.m-datatable-multiactions:first a', this).each(function () {
+            if ($(this).attr('data-shortcut')) {
                 var __self = this;
-                shortcut.add($(this).attr('data-shortcut'), function(){
+                shortcut.add($(this).attr('data-shortcut'), function () {
                     $(__self).trigger("click");
                 }, {
-                    type : 'keydown',
-                    target : document,
-                    propagate : false
+                    type: 'keydown',
+                    target: document,
+                    propagate: false
                 });
             }
         });
     });
 
-    $('.inline-edit-column').each(function(){
+    $('.inline-edit-column').each(function () {
         var _self = this;
-        $('.inline-edit-column-edit-link', this).click(function(){
+        $('.inline-edit-column-edit-link', this).click(function () {
             $(this).hide();
             $('form', this.parentNode).show();
             return false;
         });
-        $('.inline-save-button', this).click(function(){
+        $('.inline-save-button', this).click(function () {
             console.log('save');
-            this.form.submit();
+            var ev = $._data(this.form, 'events');
+            if(ev && ev.submit) {
+                $(this.form).trigger('submit');
+            } else {
+                this.form.submit();
+            }
             return false;
         });
-        $('.inline-cancel-button', this).click(function(){
+        $('.inline-cancel-button', this).click(function () {
             console.log('cancel');
             $('form', _self).hide();
             $('.inline-edit-column-edit-link', _self).show();
             return false;
         });
+
+        if ($('form', this.parentNode).attr('is-ajax') == '1') {
+            $('form', this).submit(function (e) {
+                console.log("ajax sent");
+                $.post($(this).attr('action'), $(this).serialize(), function (data) {
+                    $('form', _self).hide();
+                    $('.inline-edit-column-edit-link', _self).text(data.value).show();
+                    if ('error' == data.status) {
+                        alert(data.message);
+                    }
+                }, 'json');
+                e.preventDefault();
+                return false;
+            });
+        }
     });
 });
 
@@ -124,10 +144,10 @@ $(document).ready(function () {
  * @param element
  * @returns {Array}
  */
-function mDataTable_GetSelected(element){
+function mDataTable_GetSelected(element) {
     var ids = new Array();
-    $('.m-datatable-row', element).each(function(){
-        if ($('td:first input', this).is(':checked')){
+    $('.m-datatable-row', element).each(function () {
+        if ($('td:first input', this).is(':checked')) {
             ids[ids.length] = $('td:first input', this).val();
         }
     });
@@ -140,19 +160,19 @@ function mDataTable_GetSelected(element){
  * @param keys
  * @param key
  */
-function mDataTable_SubmitAction(actionLink, keys, key, csrfKey, csrfValue){
-    if ($(actionLink).attr('data-js')){
+function mDataTable_SubmitAction(actionLink, keys, key, csrfKey, csrfValue) {
+    if ($(actionLink).attr('data-js')) {
         var fn = window[$(actionLink).attr('data-js')];
-        if (typeof fn === 'function'){
+        if (typeof fn === 'function') {
             fn($(actionLink).attr('data-action'), keys, key, csrfKey, csrfValue);
         }
     }
-    if ($(actionLink).attr('data-url')){
+    if ($(actionLink).attr('data-url')) {
         var form = $('<form>').attr('method', 'post').attr('action', $(actionLink).attr('data-url')).appendTo(document.body);
         $('<input>').attr('name', 'action').val($(actionLink).attr('data-action')).appendTo(form);
         $('<input>').attr('name', csrfKey).val(csrfValue).appendTo(form);
-        for (var i =0; i < keys.length; i++){
-            $('<input>').attr('name', key+'[]').val(keys[i]).appendTo(form);
+        for (var i = 0; i < keys.length; i++) {
+            $('<input>').attr('name', key + '[]').val(keys[i]).appendTo(form);
         }
         form.submit();
     }
