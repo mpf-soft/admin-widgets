@@ -60,8 +60,8 @@ class Basic extends \mpf\base\Object {
     public $filter;
 
     /**
-     * Can be a php code to be evaluated by "eval()" method
-     * @var string
+     * Can be a php code to be evaluated by "eval()" method or a callback method that gets $row and $table as a param
+     * @var string|callback
      */
     public $value;
 
@@ -154,9 +154,13 @@ class Basic extends \mpf\base\Object {
     public function getValue($row, Table $table) {
         if (!$this->value)
             return $row->{$this->name};
-        $res = '';
-        eval("\$res = {$this->value};");
-        return $res;
+        if (is_string($this->value)) {
+            $res = '';
+            eval("\$res = {$this->value};");
+            return $res;
+        } elseif (is_callable($this->value)){
+            return call_user_func($this->value, $row, $table);
+        }
     }
 
     /**
