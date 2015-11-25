@@ -168,7 +168,11 @@ class InlineEdit extends Basic {
     public function getValue($row, Table $table) {
         $res = '';
         if ($this->value) {
-            eval("\$res = {$this->value};");
+            if (is_callable($this->value)){
+                $res = call_user_func($this->value, $row, $table);
+            } else {
+                eval("\$res = {$this->value};");
+            }
         } else {
             $res = ('select' == $this->type) ? ((isset($this->options[$row->{$this->name}]) ? $this->options[$row->{$this->name}] : $this->noValueDisplay)) : $row->{$this->name};
         }
