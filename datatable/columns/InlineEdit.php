@@ -46,6 +46,12 @@ class InlineEdit extends Basic {
     public $options = [];
 
     /**
+     * HTML Options for the generated input field
+     * @var array
+     */
+    public $inputHTMLOptions = [];
+
+    /**
      * List of HTML options that will apply to form
      * @var array
      */
@@ -180,13 +186,13 @@ class InlineEdit extends Basic {
             case 'input':
             case 'password':
             case 'email':
-                $form .= Form::get()->input($this->name, str_replace('input', 'text', $this->type), $row->{$this->name});
+                $form .= Form::get()->input($this->name, str_replace('input', 'text', $this->type), $row->{$this->name}, $this->inputHTMLOptions);
                 break;
             case 'date':
-                $form .= Form::get()->input($this->name, str_replace('input', 'date', $this->type), $row->{$this->name});
+                $form .= Form::get()->input($this->name, str_replace('input', 'date', $this->type), $row->{$this->name}, $this->inputHTMLOptions);
                 break;
             case 'select':
-                $form .= Form::get()->select($this->name, $this->options, $row->{$this->name});
+                $form .= Form::get()->select($this->name, $this->options, $row->{$this->name}, $this->inputHTMLOptions);
                 break;
             case 'default':
                 trigger_error("Invalid type {$this->type}!");
