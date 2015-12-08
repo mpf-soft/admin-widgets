@@ -24,11 +24,28 @@
  * along with MPF Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$(document).ready(function(){
+$(document).ready(function () {
     mpfFormOnLoadInit();
 });
 
 function mpfFormOnLoadInit() {
+
+    function markdownPreview(element){
+        var _parent = element.parentNode;
+        var csrfKey = $(element).attr('csrf-key');
+        var csrfValue = $(element).attr('csrf-value');
+        var post = {
+            MarkdownPreview : 1,
+            text : $(element).val()
+        };
+        post[csrfKey] = csrfValue;
+        $.post(
+            $(this).attr('ajax-url'), post,
+            function (data) {
+                $(".markdown-preview", _parent).html(data);
+            }
+        );
+    }
 
     $('.birthday').change(function () {
         var parent = this.parentNode;
@@ -37,5 +54,19 @@ function mpfFormOnLoadInit() {
     if ($('.autocomplete').length) {
         $('.autocomplete').autocomplete();
     }
+
+    $(".markdown-input").each(function () {
+        var interval;
+        $(this).focus(function(){
+            var _element = this;
+            interval = setInterval(function(){
+                markdownPreview(_element);
+            }, 5000);
+        }).blur(function(){
+            clearInterval(interval);
+            markdownPreview(this);
+        });
+    });
+
 
 }

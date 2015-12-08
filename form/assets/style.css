@@ -28,28 +28,28 @@
     Author     : Mirel Mitache
 */
 
-.mform{
-    margin:0;
-    padding:0;
-    display:block;
+.mform {
+    margin: 0;
+    padding: 0;
+    display: block;
 }
 
-.mform .row, .mform .row-buttons{
-    display:block;
-    clear:both;
+.mform .row, .mform .row-buttons {
+    display: block;
+    clear: both;
 }
 
-.mform .row .label, .mform .row .input{
-    display:block;
-    float:left;
+.mform .row .label, .mform .row .input {
+    display: block;
+    float: left;
 }
 
-.mform .mce-tinymce{
-    float:left;
+.mform .mce-tinymce {
+    float: left;
 }
 
-.mform .form-autocomplete-list{
-    display:none;
+.mform .form-autocomplete-list {
+    display: none;
     position: absolute;
     background: #fff;
     box-shadow: 0 0 3px #888;
@@ -58,273 +58,296 @@
     max-height: 200px;
 }
 
-.mform .form-autocomplete-list ul li{
-    display:block;
+.mform .form-autocomplete-list ul li {
+    display: block;
     line-height: 30px;
     padding: 0 5px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.mform .form-autocomplete-list ul li.hidden{
+.mform .form-autocomplete-list ul li.hidden {
     display: none;
 }
 
-.mform .form-autocomplete-list ul li.selected{
+.mform .form-autocomplete-list ul li.selected {
     background: #eaeaea;
 }
 
-.mform-default{
-    float:left;
+.mform-default {
+    float: left;
     margin-left: 1%;
-    width:98%;
+    width: 98%;
     margin-top: 20px;
     box-shadow: 0px 0px 3px #7f7f7f;
     background: #fafafa;
     padding-top: 5px;
     font-size: 11px;
-    color:#3f3f3f;
+    color: #3f3f3f;
 }
 
-.mform-default .row{
+.mform-default .row {
     line-height: 30px;
     min-height: 30px;
     margin-left: 5px;
     margin-right: 5px;
 }
 
-.mform-default .row .label{
-    width:200px;
+.mform-default .row .label {
+    width: 200px;
     padding-left: 20px;
     font-weight: bold;
 }
 
-.mform-default .row .input{
-    width:200px;
+.mform-default .row .input {
+    width: 200px;
     border: 1px solid #999999;
     outline: none;
     min-height: 20px;
     padding-left: 5px;
     padding-right: 5px;
-    color:#303030;
+    color: #303030;
     border-radius: 3px;
 }
 
-.mform-default .row textarea.input{
-    height:50px;
+.mform-default .row textarea.input {
+    height: 50px;
     margin-bottom: 10px;
 }
 
-.mform-default .row .input:focus{
-    background:#eeeeee;
+.mform-default .row .input:focus {
+    background: #eeeeee;
 }
 
-.mform-default .row-buttons{
+.mform-default .row-buttons {
     height: 40px;
     line-height: 40px;
     background: #f2f2f2;
 }
 
-.mform-default .row-buttons input{
-    float:right;
+.mform-default .row-buttons input {
+    float: right;
     margin-right: 10px;
     margin-top: 5px;
     height: 30px;
     background: #ffffff; /* Old browsers */
-    background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-    border:1px solid #999999;
-    color:#303030;
+    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0); /* IE6-9 */
+    border: 1px solid #999999;
+    color: #303030;
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.mform-default .row-buttons input:hover{
+.mform-default .row-buttons input:hover {
     box-shadow: 0px 0px 3px #999;
 }
 
-.mform-default .row-buttons a{
-    float:left;
-    color :#1c94c4;
+.mform-default .row-buttons a {
+    float: left;
+    color: #1c94c4;
     text-decoration: none;
     margin-left: 15px;
 }
 
-.mform-default .row-buttons a:hover{
+.mform-default .row-buttons a:hover {
     text-decoration: underline;
 }
 
-.mform-default .row .errors{
+.mform-default .row .errors {
     color: orangered;
-    display:block;
-    float:left;
-    clear:both;
+    display: block;
+    float: left;
+    clear: both;
 }
 
-.mform-default .row .errors ul, .mform-default .row .errors li{
-    margin:0;
-    padding:0;
-    display:block;
+.mform-default .row .errors ul, .mform-default .row .errors li {
+    margin: 0;
+    padding: 0;
+    display: block;
 }
 
-.mform-default .has-error{
+.mform-default .has-error {
     color: orangered;
 }
 
-.mform-default .has-error .input{
+.mform-default .has-error .input {
     border-color: orangered;
 }
 
-.mform-default .markitup-textarea{
-    width:100%;
+.mform-default .markitup-textarea {
+    width: 100%;
     height: 250px;
 }
 
-
-
-.mform-default-wide{
-    float:left;
+.mform-default-wide {
+    float: left;
     margin-left: 3%;
-    width:94%;
+    width: 94%;
     margin-top: 20px;
     box-shadow: 0px 0px 3px #7f7f7f;
     background: #fafafa;
     padding-top: 5px;
     font-size: 11px;
-    color:#3f3f3f;
+    color: #3f3f3f;
 }
 
-.mform-default-wide .row{
+.mform-default-wide .row {
     line-height: 30px;
     min-height: 60px;
     margin-left: 5px;
     margin-right: 5px;
 }
 
-.mform-default-wide .row .label{
-    width:100%;
+.mform-default-wide .row .label {
+    width: 100%;
     padding-left: 20px;
     font-weight: bold;
 }
 
-.mform-default-wide .row .input{
-    width:95%;
+.mform-default-wide .row .input {
+    width: 95%;
     margin-left: 1%;
-    clear:left;
+    clear: left;
     border: 1px solid #999999;
     outline: none;
     min-height: 20px;
     padding-left: 5px;
     padding-right: 5px;
-    color:#303030;
+    color: #303030;
     border-radius: 3px;
 }
 
-.mform-default-wide .row .hasDatepicker{
+.mform-default-wide .row .hasDatepicker {
     margin-left: 1%;
-    clear:left;
+    clear: left;
     border: 1px solid #999999;
     outline: none;
-    width:220px;
+    width: 220px;
     min-height: 20px;
     padding-left: 5px;
     padding-right: 5px;
-    color:#303030;
+    color: #303030;
     border-radius: 3px;
 }
 
-.mform-default-wide .row .birthday{
+.mform-default-wide .row .birthday {
     margin-left: 1%;
     border: 1px solid #999999;
     outline: none;
-    width:160px;
+    width: 160px;
     min-height: 20px;
     padding-left: 5px;
     padding-right: 5px;
-    color:#303030;
+    color: #303030;
     border-radius: 3px;
 }
 
-.mform-default-wide .row textarea.input{
-    height:50px;
+.mform-default-wide .row textarea.input {
+    height: 50px;
     margin-bottom: 10px;
 }
 
-.mform-default-wide .row .input:focus{
-    background:#eeeeee;
+.mform-default-wide .row .input:focus {
+    background: #eeeeee;
 }
 
-.mform-default-wide .row-buttons{
+.mform-default-wide .row-buttons {
     height: 40px;
     line-height: 40px;
     background: #f2f2f2;
 }
 
-.mform-default-wide .row-buttons input{
-    float:right;
+.mform-default-wide .row-buttons input {
+    float: right;
     margin-right: 10px;
     margin-top: 5px;
     height: 30px;
     background: #ffffff; /* Old browsers */
-    background: -moz-linear-gradient(top,  #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #ffffff 0%,#e5e5e5 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #ffffff 0%,#e5e5e5 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-    border:1px solid #999999;
-    color:#303030;
+    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0); /* IE6-9 */
+    border: 1px solid #999999;
+    color: #303030;
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.mform-default-wide .row-buttons input:hover{
+.mform-default-wide .row-buttons input:hover {
     box-shadow: 0px 0px 3px #999;
 }
 
-.mform-default-wide .row-buttons a{
-    float:left;
-    color :#1c94c4;
+.mform-default-wide .row-buttons a {
+    float: left;
+    color: #1c94c4;
     text-decoration: none;
     margin-left: 15px;
 }
 
-.mform-default-wide .row-buttons a:hover{
+.mform-default-wide .row-buttons a:hover {
     text-decoration: underline;
 }
 
-.mform-default-wide .row .errors{
+.mform-default-wide .row .errors {
     color: orangered;
-    display:block;
-    float:left;
-    clear:both;
+    display: block;
+    float: left;
+    clear: both;
 }
 
-.mform-default-wide .row .errors ul, .mform-default-wide .row .errors li{
-    margin:0;
-    padding:0;
-    display:block;
+.mform-default-wide .row .errors ul, .mform-default-wide .row .errors li {
+    margin: 0;
+    padding: 0;
+    display: block;
 }
 
-.mform-default-wide .has-error{
+.mform-default-wide .has-error {
     color: orangered;
 }
 
-.mform-default-wide .has-error .input{
+.mform-default-wide .has-error .input {
     border-color: orangered;
 }
 
-.mform-default-wide .markitup-textarea{
-    width:100%;
+.mform-default-wide .markitup-textarea {
+    width: 100%;
     height: 250px;
 }
 
-.mform-default-wide .mce-tinymce{
+.mform-default-wide .mce-tinymce {
     margin-left: 1%;
     width: 95%;
+}
+
+.mform-default-wide .markdown-hint {
+    display: block;
+    float: left;
+    width: 96%;
+    margin-left: 1%;
+    font-style: italic;
+    text-align: right;
+}
+
+.mform-default-wide div.row textarea.markdown-input{
+    height: 250px;
+}
+
+.mform-default-wide .markdown-preview {
+    border: 1px solid #dadada;
+    display:block;
+    float:left;
+    padding:5px;
+    width: 96%;
+    margin-left: 1%;
+    box-sizing: border-box;
+    overflow: auto;
+    max-height: 150px;
 }
