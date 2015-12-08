@@ -16,7 +16,7 @@ use mpf\widgets\form\Field;
 
 class Markdown extends Field {
 
-    public $hintText = "This input uses Markdown syntax. <a href='https://github.com/michelf/php-markdown' target='_blank'>Click For Details</a>";
+    public $hintText = "This input uses Markdown syntax. <a href='https://daringfireball.net/projects/markdown/syntax' target='_blank'>Click For Details</a>";
 
     /**
      * A POST with the text will be sent in an AJAX request and the returned content will be displayed.
