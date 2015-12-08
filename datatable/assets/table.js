@@ -124,10 +124,9 @@ $(document).ready(function () {
 
         if ($('form', this.parentNode).attr('is-ajax') == '1') {
             $('form', this).submit(function (e) {
-                console.log("ajax sent");
                 $.post($(this).attr('action'), $(this).serialize(), function (data) {
                     $('form', _self).hide();
-                    $('.inline-edit-column-edit-link', _self).text(data.value).show();
+                    $('.inline-edit-column-edit-link', _self).html(data.value).show();
                     if ('error' == data.status) {
                         alert(data.message);
                     }
