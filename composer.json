@@ -1,20 +1,21 @@
 {
-    "name": "mpf-soft/admin-widgets",
-    "description": "Basic widgets used by Admin module from base-app",
-    "license": "Apache License",
-    "authors": [
-        {
-            "name": "Mirel Mitache",
-            "email": "mitache.mirel@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-	"mpf-soft/mpf" : "*"
-    },
-    "autoload" : {
-	"psr-4" : {
-		"mpf\\widgets\\" : "/"
-	}
+  "name": "mpf-soft/admin-widgets",
+  "description": "Basic widgets used by Admin module from base-app",
+  "license": "Apache License",
+  "authors": [
+    {
+      "name": "Mirel Mitache",
+      "email": "mitache.mirel@gmail.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "mpf-soft/mpf": "*",
+    "michelf/php-markdown" : "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "mpf\\widgets\\": "/"
+    }
+  }
 }
