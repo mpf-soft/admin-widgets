@@ -105,6 +105,11 @@ abstract class Field extends \mpf\base\TranslatableObject {
     public $error;
 
     /**
+     * @var bool
+     */
+    public $visible = true;
+
+    /**
      * Get label for current field. It will first try to get label attribute, if that's not specified it will check for a model
      * and read the label from there, if it's still not found then it will generate one using the name.
      * @return string
@@ -133,6 +138,9 @@ abstract class Field extends \mpf\base\TranslatableObject {
      * @return string
      */
     public function display(Form $form) {
+        if (!$this->visible){
+            return "";
+        }
         $this->form = $form;
         if (!isset($this->rowHtmlOptions['class'])) {
             $this->rowHtmlOptions['class'] = $this->rowClass;
