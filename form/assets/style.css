@@ -212,7 +212,7 @@
 }
 
 .mform-default-wide .row .input {
-    width: calc(100% - 40px);
+    width: calc(100% - 50px);
     margin-left: 20px;
     clear: left;
     border: 1px solid #999999;
@@ -267,7 +267,7 @@
 
 .mform-default-wide .row-buttons input {
     float: right;
-    margin-right: 20px;
+    margin-right: 30px;
     margin-top: 5px;
     height: 30px;
     background: #ffffff; /* Old browsers */
