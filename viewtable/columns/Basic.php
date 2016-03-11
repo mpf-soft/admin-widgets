@@ -9,10 +9,10 @@
 namespace mpf\widgets\viewtable\columns;
 
 
-use mpf\base\Object;
+use mpf\base\TranslatableObject;
 use mpf\web\helpers\Html;
 
-class Basic extends Object {
+class Basic extends TranslatableObject {
 
     public $name;
 
@@ -46,7 +46,7 @@ class Basic extends Object {
     }
 
     protected function getLabel(){
-        return $this->label?:$this->table->getLabel($this->name);
+        return $this->translate($this->label?:$this->table->getLabel($this->name));
     }
 
     protected function getValue(){
