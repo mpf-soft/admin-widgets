@@ -27,6 +27,7 @@
  */
 
 namespace mpf\widgets\form\fields;
+
 use mpf\web\helpers\Form;
 use mpf\widgets\form\Field;
 
@@ -47,15 +48,37 @@ class Checkbox extends Field {
      * Value for single checkbox
      * @var string
      */
-    public $val='1';
+    public $val = '1';
 
+    /**
+     * @return mixed|string
+     */
     public function getInput() {
-        $this->htmlOptions['class'] = (isset($this->htmlOptions['class'])?$this->htmlOptions['class'].' ':'') . 'checkbox-input';
-        if ($this->options){
+        $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' ' : '') . 'checkbox-input';
+        if ($this->options) {
             return Form::get()->checkboxGroup($this->getName(), $this->options, $this->getValue(), $this->htmlOptions, $this->template, $this->separator);
         } else {
             return Form::get()->checkbox($this->getName(), $this->getLabel(), $this->val, $this->getValue(), $this->htmlOptions, $this->template);
         }
+    }
 
+    /**
+     * @param Form $form
+     * @return string
+     */
+    public function display(Form $form) {
+        if (!$this->options)
+            $this->rowClass = 'row single-checkbox-row';
+        return parent::display($form);
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent() {
+        if ($this->options)
+            return parent::getContent();
+        $this->labelHtmlOptions['class'] = (isset($this->labelHtmlOptions['class']) ? $this->labelHtmlOptions['class'] . ' ' : '') . $this->labelClass;
+        return $this->getInput() . $this->getHTMLError();
     }
 }

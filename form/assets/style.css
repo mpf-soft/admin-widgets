@@ -204,6 +204,14 @@
     margin-right: 5px;
 }
 
+.mform-default-wide div.single-checkbox-row{
+    min-height: 30px;
+}
+
+.mform-default-wide div.single-checkbox-row .checkbox-input{
+    margin-left:20px;
+}
+
 .mform-default-wide .row .label {
     width: 100%;
     padding-left: 20px;
