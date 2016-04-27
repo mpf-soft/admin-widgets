@@ -28,7 +28,7 @@
 
 namespace mpf\widgets\form\fields;
 
-use mpf\web\helpers\Form;
+use mpf\widgets\form\Form;
 use mpf\widgets\form\Field;
 
 /**
@@ -56,9 +56,9 @@ class Checkbox extends Field {
     public function getInput() {
         $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' ' : '') . 'checkbox-input';
         if ($this->options) {
-            return Form::get()->checkboxGroup($this->getName(), $this->options, $this->getValue(), $this->htmlOptions, $this->template, $this->separator);
+            return \mpf\web\helpers\Form::get()->checkboxGroup($this->getName(), $this->options, $this->getValue(), $this->htmlOptions, $this->template, $this->separator);
         } else {
-            return Form::get()->checkbox($this->getName(), $this->getLabel(), $this->val, $this->getValue(), $this->htmlOptions, $this->template);
+            return \mpf\web\helpers\Form::get()->checkbox($this->getName(), $this->getLabel(), $this->val, $this->getValue(), $this->htmlOptions, $this->template);
         }
     }
 
