@@ -100,7 +100,7 @@
 }
 
 .mform-default .row .input {
-    width: calc(100% - 200px);
+    width: calc(100% - 220px);
     box-sizing: border-box;
     border: 1px solid #999999;
     outline: none;
