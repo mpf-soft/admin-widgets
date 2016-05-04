@@ -215,7 +215,7 @@ class Basic extends \mpf\base\Object {
      * @param Table $table
      * @return string
      */
-    public function getHeaderCode(Table $table) {
+    public function getHeaderCode(\mpf\widgets\datatable\Table $table) {
         $label = $this->getLabel();
         if (!$this->order) {
             return $label;
