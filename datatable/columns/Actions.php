@@ -94,7 +94,7 @@ class Actions extends Basic {
         return "&nbsp;";
     }
 
-    function getValue($row, $table) {
+    function getValue($row, Table $table) {
         $result = '';
         foreach ($this->instancedButtons as $button){
             /* @var $button \mpf\widgets\datatable\columns\actions\Basic */
