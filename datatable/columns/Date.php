@@ -9,6 +9,7 @@
 namespace mpf\widgets\datatable\columns;
 
 use mpf\web\helpers\Form;
+use mpf\widgets\datatable\Table;
 
 class Date extends Basic {
 

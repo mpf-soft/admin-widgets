@@ -43,7 +43,7 @@ class Delete extends Basic{
     
     public $url = "\\mpf\\WebApp::get()->request()->createURL(\\mpf\\WebApp::get()->request()->getController(), 'delete')";
     
-    public function init($config = array()) {
+    public function init($config) {
         if (!$this->confirmation){
             $this->confirmation = $this->translate('Are you sure you want to delete this?');
         }

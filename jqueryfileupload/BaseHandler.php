@@ -46,7 +46,7 @@ class BaseHandler extends TranslatableObject {
         'image_resize' => 'Failed to resize image'
     ];
 
-    public function init($config = []) {
+    public function init($config) {
         $this->options = [
                 'script_url' => $this->uploader->dataUrl,
                 'upload_dir' => $this->uploader->uploadDir ?: dirname($_SERVER['SCRIPT_FILENAME']) . '/uploads/',

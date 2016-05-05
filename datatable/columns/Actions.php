@@ -27,6 +27,7 @@
  */
 
 namespace mpf\widgets\datatable\columns;
+use mpf\widgets\datatable\Table;
 
 /**
  * Description of Actions
@@ -54,7 +55,7 @@ class Actions extends Basic {
      */
     public $order = false;
 
-    public function init($config = array()) {
+    public function init($config) {
         foreach ($this->buttons as $name => $details) {
             $class = isset($details['class']) ? $details['class'] : 'Basic';
             if (false === strpos($class, '\\'))

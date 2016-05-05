@@ -149,7 +149,7 @@ class InlineEdit extends Basic {
      */
     public $linkElement = 'a';
 
-    public function init($config = []) {
+    public function init($config) {
         if (!isset($this->htmlOptions['class'])) {
             $this->htmlOptions['class'] = 'inline-edit-column';
         } else {

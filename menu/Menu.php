@@ -80,7 +80,7 @@ class Menu extends \mpf\base\Widget {
      */
     public $dropDownIcon;
 
-    public function init($config = array()) {
+    public function init($config) {
         $this->instantiatedItems = $this->loadItems($this->items);
         return parent::init($config);
     }

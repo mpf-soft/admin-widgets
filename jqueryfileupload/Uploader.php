@@ -124,7 +124,7 @@ class Uploader extends Widget {
      * @return bool
      * @throws \Exception
      */
-    protected function init($config = []) {
+    protected function init($config) {
         parent::init($config);
         if (!$this->dataUrl) {
             $this->dataUrl = WebApp::get()->request()->getCurrentURL(); // if dataUrl is not set then current URL will be used;
