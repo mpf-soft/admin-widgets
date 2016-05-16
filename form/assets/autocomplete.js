@@ -23,7 +23,7 @@ var MPFForm_AutoComplete = {
             if (($(this).attr('autc_ajax') == '1') && ($(this).val().length >= $(this).attr('autc_minletters'))){
                 // ajax search
             } else {
-                if (!$('.form-autocomplete-list', this.parentNode).visible()){
+                if (!$('.form-autocomplete-list', this.parentNode).is(':visible')){
                     $('.form-autocomplete-list', this.parentNode).fadeIn();
                 }
                 _self.filterList(this.value, $('.form-autocomplete-list', this.parentNode));
@@ -43,6 +43,7 @@ var MPFForm_AutoComplete = {
                 _self.moveUp($('.form-autocomplete-list', this.parentNode));
             } else if (e.which == 13) {
                 $(this).val($('.form-autocomplete-list', this.parentNode).find('li.selected').text());
+                console.log("ENTER on: " + $('.form-autocomplete-list', this.parentNode).find('li.selected').text());
                 $('#' + $(this).attr('autc_for')).val($('.form-autocomplete-list', this.parentNode).find('li.selected').text());
                 $('.form-autocomplete-list', this.parentNode).fadeOut();
                 enterPressed = true;
@@ -55,9 +56,10 @@ var MPFForm_AutoComplete = {
             $('li',this.parentNode).removeClass('selected');
             $(this).addClass('selected');
         }).click(function(){
-            $(_self).val($(this).text());
-            $('#' + $(_self).attr('autc_for')).val($(this).text());
-            $('.form-autocomplete-list', _self.parentNode).fadeOut();
+            $(element).val($(this).text());
+            console.log('Click on: ' + $(this).text());
+            $('#' + $(element).attr('autc_for')).val($(this).text());
+            $('.form-autocomplete-list', element.parentNode).fadeOut();
             enterPressed = true;
             return false;
         })
@@ -117,7 +119,6 @@ var MPFForm_AutoComplete = {
         }
         this.checkScroll(list);
     },
-
     filterList: function (text, list) {
         if (text.length == 0) {
             $('li', list).removeClass('hidden');
