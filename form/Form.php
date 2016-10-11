@@ -247,7 +247,7 @@ class Form extends \mpf\base\Widget {
             return HtmlHelper::get()->noContentElement('input', array(
                 'type' => 'submit',
                 'name' => $details,
-                'value' => ucwords(str_replace('_', ' ', $details))
+                'value' => $this->translate(ucwords(str_replace('_', ' ', $details)))
             ));
         }
         if (isset($details['visible']) && $details['visible'] == false) {
