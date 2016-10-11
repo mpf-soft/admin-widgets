@@ -256,7 +256,7 @@ class Form extends \mpf\base\Widget {
         $htmlOptions = isset($details['htmlOptions']) ? $details['htmlOptions'] : array();
         $htmlOptions['type'] = isset($details['type']) ? $details['type'] : 'submit';
         $htmlOptions['name'] = $details['name'];
-        $htmlOptions['value'] = $details['label'];
+        $htmlOptions['value'] = $this->translate($details['label']);
         return HtmlHelper::get()->noContentElement('input', $htmlOptions);
     }
 
