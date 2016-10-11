@@ -108,6 +108,12 @@ abstract class Field extends \mpf\base\TranslatableObject {
      * @var bool
      */
     public $visible = true;
+    
+    /**
+     * For Special cases when value is manually added( like relations ). This will override everything else(POST, GET)
+     * @var string
+     */
+    public $value = null;
 
     /**
      * Get label for current field. It will first try to get label attribute, if that's not specified it will check for a model
@@ -213,6 +219,8 @@ abstract class Field extends \mpf\base\TranslatableObject {
      * @return mixed|string|void
      */
     public function getValue() {
+        if ($this->value)
+            return $this->value;
         $value = $this->getArrayValue($this->form->method == 'POST' ? $_POST : $_GET, $this->getName());
         if ($value) {
             return $value;
