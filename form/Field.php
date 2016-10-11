@@ -219,7 +219,7 @@ abstract class Field extends \mpf\base\TranslatableObject {
      * @return mixed|string|void
      */
     public function getValue() {
-        if ($this->value)
+        if (!is_null($this->value))
             return $this->value;
         $value = $this->getArrayValue($this->form->method == 'POST' ? $_POST : $_GET, $this->getName());
         if ($value) {
