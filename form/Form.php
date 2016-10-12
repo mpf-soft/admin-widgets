@@ -39,7 +39,8 @@ use mpf\WebApp;
  *
  * @author Mirel Mitache
  */
-class Form extends \mpf\base\Widget {
+class Form extends \mpf\base\Widget
+{
 
     /**
      * Name of the form it's used for submit button as it's name.
@@ -150,7 +151,8 @@ class Form extends \mpf\base\Widget {
      */
     public $action;
 
-    public function publishAssets(){
+    public function publishAssets()
+    {
         $this->assetsURL = AssetsPublisher::get()->publishFolder(__DIR__ . DIRECTORY_SEPARATOR . $this->assetsFolder);
         echo HtmlHelper::get()->cssFile($this->getAssetsURL() . 'style.css')
             . HtmlHelper::get()->mpfScriptFile('jquery.js')
@@ -160,18 +162,19 @@ class Form extends \mpf\base\Widget {
     /**
      * Display form.
      */
-    public function display() {
+    public function display()
+    {
         $this->publishAssets();
         if (!isset($this->htmlOptions['class'])) {
             $this->htmlOptions['class'] = 'mform mform-' . $this->theme;
         } else {
             $this->htmlOptions['class'] .= 'mform mform-' . $this->theme;
         }
-        if ($this->action){
-            $this->formHtmlOptions['action'] = is_string($this->action)?$this->action:WebApp::get()->request()->createURL( $this->action[0],
-                isset($this->action[1])?$this->action[1]:null,
-                isset($this->action[2])?$this->action[2]:[],
-                isset($this->action[3])?$this->action[3]:null);
+        if ($this->action) {
+            $this->formHtmlOptions['action'] = is_string($this->action) ? $this->action : WebApp::get()->request()->createURL($this->action[0],
+                isset($this->action[1]) ? $this->action[1] : null,
+                isset($this->action[2]) ? $this->action[2] : [],
+                isset($this->action[3]) ? $this->action[3] : null);
         }
         $this->formHtmlOptions['method'] = $this->method;
         return HtmlHelper::get()->tag('div', FormHelper::get()->openForm($this->formHtmlOptions) . $this->getContent() . FormHelper::get()->closeForm(), $this->htmlOptions);
@@ -180,11 +183,12 @@ class Form extends \mpf\base\Widget {
     /**
      * @return string
      */
-    protected function getContent() {
+    protected function getContent()
+    {
 
         $hiddenInputs = [];
-        foreach ($this->hiddenInputs as $name=>$value){
-             $hiddenInputs[] =  \mpf\web\helpers\Form::get()->hiddenInput($name, $value);
+        foreach ($this->hiddenInputs as $name => $value) {
+            $hiddenInputs[] = \mpf\web\helpers\Form::get()->hiddenInput($name, $value);
         }
         $hiddenInputs = implode("\n", $hiddenInputs);
 
@@ -206,7 +210,7 @@ class Form extends \mpf\base\Widget {
         $buttons = [];
 
         if ($this->submitButton) {
-            $buttons[] = $this->getButton(['name' => $this->name, 'label' => $this->submitButton]);
+            $buttons[] = $this->getButton(is_array($this->submitButton) ? $this->submitButton : ['name' => $this->name, 'label' => $this->submitButton]);
         } else {
             $buttons[] = $this->getButton($this->name);
         }
@@ -219,7 +223,7 @@ class Form extends \mpf\base\Widget {
         }
         $links = [];
         foreach ($this->links as $label => $link) {
-            if (is_array($link)){
+            if (is_array($link)) {
                 $links[] = Html::get()->link($link['href'], $label, $link);
             } else {
                 $links[] = Html::get()->link($link, $this->translate($label));
@@ -233,7 +237,8 @@ class Form extends \mpf\base\Widget {
      * Return URL to assets folder. Only works after :display() has been called;
      * @return string
      */
-    public function getAssetsURL() {
+    public function getAssetsURL()
+    {
         return $this->assetsURL;
     }
 
@@ -242,7 +247,8 @@ class Form extends \mpf\base\Widget {
      * @param string|array $details
      * @return string
      */
-    public function getButton($details) {
+    public function getButton($details)
+    {
         if (is_string($details)) {
             return HtmlHelper::get()->noContentElement('input', array(
                 'type' => 'submit',
