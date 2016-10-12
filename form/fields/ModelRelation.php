@@ -66,12 +66,13 @@ GEN;
     }
 
     /**
-     * @param $value
-     * @param $key
-     * @param $baseName
+     * @param mixed $value
+     * @param string $key
+     * @param string $baseName
+     * @param array $errors
      * @return string
      */
-    protected function getSingleInput($value, $key, $baseName)
+    protected function getSingleInput($value, $key, $baseName, $errors = [])
     {
         $c = $this->modelClass;
         $labels = $c::getLabels();
@@ -82,8 +83,9 @@ GEN;
             $name = is_string($field) ? $field : $field['name'];
             $label = $this->translate(isset($labels[$name]) ? $labels[$name] : ucwords(str_replace('_', ' ', $name)));
             $name = $baseName . "[" . $name . "]";
+            $error = isset($errors[$name]) ? $errors[$name] : false;
             if (is_string($field)) {
-                $field = new Text(['name' => $name, 'label' => $label, 'value' => isset($value[$name]) ? $value[$name] : '']);
+                $field = new Text(['name' => $name, 'label' => $label, 'value' => isset($value[$name]) ? $value[$name] : '', 'error' => $error]);
                 $fields[] = $field->display($this->form);
             } elseif (is_array($field)) {
                 $class = isset($field['type']) ? ucfirst($field['type']) : 'Text';
@@ -93,6 +95,7 @@ GEN;
                     $field['label'] = $label;
                 $field['value'] = isset($value[$name]) ? $value[$name] : (isset($field['defaultValue']) ? $field['defaultValue'] : '');
                 $field['name'] = $name;
+                $field['error'] = $error;
                 $field = new $class($field);
                 /* @var $field \mpf\widgets\form\Field */
                 $fields[] = $field->display($this->form);
@@ -131,9 +134,10 @@ GEN;
 
         }
 
+        $errors = $this->getError();
         if ($value) {
             foreach ($value as $k => $val) {
-                $r .= $this->getSingleInput($val, $k, $baseName);
+                $r .= $this->getSingleInput($val, $k, $baseName, isset($errors[$k]) ? $errors[$k] : []);
             }
         } else {
             $r .= $this->getSingleInput([], $this->newKeysSuffix . '0', $baseName);
