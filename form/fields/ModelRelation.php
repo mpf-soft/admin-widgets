@@ -44,10 +44,15 @@ class ModelRelation extends Field
     {
         if (self::$jsPublished)
             return "";
+        $value = $this->getValue();
+        $start = 1;
+        if ($value) {
+            $start = count($value) + 1;
+        }
         self::$jsPublished = true;
         $htmlCode = str_replace("\n", " ", str_replace('"', '\"', $this->getSingleInput([], '_REPL_ME_KEY_', $baseName)));
         $f = <<<GEN
-var FormModelRelationField_CurrentKeyCount = 1;        
+var FormModelRelationField_CurrentKeyCount = $start;        
 function FormModelRelationField_AddField(fieldset){
     var keySuffix = '{$this->newKeysSuffix}';
     var code = "$htmlCode".split('_REPL_ME_KEY_').join(keySuffix + FormModelRelationField_CurrentKeyCount);
