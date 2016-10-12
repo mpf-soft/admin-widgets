@@ -50,7 +50,7 @@ class ModelRelation extends Field
 var FormModelRelationField_CurrentKeyCount = 1;        
 function FormModelRelationField_AddField(fieldset){
     var keySuffix = '{$this->newKeysSuffix}';
-    var code = "$htmlCode".replace('_REPL_ME_KEY_', keySuffix + FormModelRelationField_CurrentKeyCount);
+    var code = "$htmlCode".split('_REPL_ME_KEY_').join(keySuffix + FormModelRelationField_CurrentKeyCount));
     FormModelRelationField_CurrentKeyCount = FormModelRelationField_CurrentKeyCount + 1;
     $(fieldset.parentNode).append(code);
     return false;
