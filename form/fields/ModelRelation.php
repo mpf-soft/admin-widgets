@@ -11,7 +11,7 @@ namespace mpf\widgets\form\fields;
 use mpf\web\helpers\Html;
 use mpf\widgets\form\Field;
 
-class ModelRelationField extends Field
+class ModelRelation extends Field
 {
     protected static $jsPublished = false;
 
