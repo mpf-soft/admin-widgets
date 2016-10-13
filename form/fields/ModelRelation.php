@@ -85,12 +85,12 @@ GEN;
             $baseName .= "[$key]";
         $fields = [];
         foreach ($this->fields as $field) {
-            $name = is_string($field) ? $field : $field['name'];
+            $sName = $name = is_string($field) ? $field : $field['name'];
             $label = $this->translate(isset($labels[$name]) ? $labels[$name] : ucwords(str_replace('_', ' ', $name)));
             $name = $baseName . "[" . $name . "]";
             $error = isset($errors[$name]) ? $errors[$name] : false;
             if (is_string($field)) {
-                $field = new Text(['name' => $name, 'label' => $label, 'value' => isset($value[$name]) ? $value[$name] : '', 'error' => $error]);
+                $field = new Text(['name' => $name, 'label' => $label, 'value' => isset($value[$sName]) ? $value[$sName] : '', 'error' => $error]);
                 $fields[] = $field->display($this->form);
             } elseif (is_array($field)) {
                 $class = isset($field['type']) ? ucfirst($field['type']) : 'Text';
@@ -98,7 +98,7 @@ GEN;
                 unset($field['type']);
                 if (!isset($field['label']))
                     $field['label'] = $label;
-                $field['value'] = isset($value[$name]) ? $value[$name] : (isset($field['defaultValue']) ? $field['defaultValue'] : '');
+                $field['value'] = isset($value[$sName]) ? $value[$sName] : (isset($field['defaultValue']) ? $field['defaultValue'] : '');
                 $field['name'] = $name;
                 $field['error'] = $error;
                 $field = new $class($field);
@@ -138,7 +138,6 @@ GEN;
             $baseName = implode('', explode(']', $baseName, 2));
 
         }
-
         $errors = $this->getError();
         if ($value) {
             foreach ($value as $k => $val) {
