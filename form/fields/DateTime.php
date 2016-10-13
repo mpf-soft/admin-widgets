@@ -54,24 +54,24 @@ class DateTime extends Field
 
         $format = str_replace(['Y', 'm', 'd'], ['yy', 'mm', 'dd'], $this->format);
         $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' ' : '') . $this->inputClass . ' datetime-date';
-        $r = Form::get()->date($this->getName() . '[date]', date($this->format, $value), $format, $this->htmlOptions);
+        $r = Form::get()->date('', date($this->format, $value), $format, $this->htmlOptions);
 
         $hours = range(0, 23);
         $seconds = $minutes = range(0, 59);
         if ($this->hour)
-            $r .= Form::get()->select($this->getName() . '[hour]', $hours, date('H', $value), ['class' => $this->inputClass . ' datetime-hour']);
+            $r .= Form::get()->select('', $hours, date('H', $value), ['class' => $this->inputClass . ' datetime-hour']);
         else
-            $r .= Form::get()->hiddenInput($this->getName() . '[hour]', (int)date('H', $value), ['class' => 'datetime-hour']);
+            $r .= Form::get()->hiddenInput('', (int)date('H', $value), ['class' => 'datetime-hour']);
 
         if ($this->minute)
-            $r .= Form::get()->select($this->getName() . '[minute]', $minutes, date('i', $value), ['class' => $this->inputClass . ' datetime-minute']);
+            $r .= Form::get()->select('', $minutes, date('i', $value), ['class' => $this->inputClass . ' datetime-minute']);
         else
-            $r .= Form::get()->hiddenInput($this->getName() . '[minute]', (int)date('i', $value), ['class' => 'datetime-minute']);
+            $r .= Form::get()->hiddenInput('', (int)date('i', $value), ['class' => 'datetime-minute']);
 
         if ($this->second)
-            $r .= Form::get()->select($this->getName() . '[second]', $seconds, date('s', $value), ['class' => $this->inputClass . ' datetime-second']);
+            $r .= Form::get()->select('', $seconds, date('s', $value), ['class' => $this->inputClass . ' datetime-second']);
         else
-            $r .= Form::get()->hiddenInput($this->getName() . '[second]', (int)date('s', $value), ['class' => 'datetime-second']);
+            $r .= Form::get()->hiddenInput('', (int)date('s', $value), ['class' => 'datetime-second']);
 
         return $r . Form::get()->hiddenInput($this->getName(), date($this->format . ' H:i:s', $value), ['class' => 'datetime-value']);
     }

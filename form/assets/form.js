@@ -30,13 +30,13 @@ $(document).ready(function () {
 
 function mpfFormOnLoadInit() {
 
-    function markdownPreview(element){
+    function markdownPreview(element) {
         var _parent = element.parentNode;
         var csrfKey = $(element).attr('csrf-key');
         var csrfValue = $(element).attr('csrf-value');
         var post = {
-            MarkdownPreview : 1,
-            text : $(element).val()
+            MarkdownPreview: 1,
+            text: $(element).val()
         };
         post[csrfKey] = csrfValue;
         $.post(
@@ -56,16 +56,16 @@ function mpfFormOnLoadInit() {
         var H = $('.datetime-hour', parent).val();
         var i = $('.datetime-minute', parent).val();
         var s = $('.datetime-second', parent).val();
-        if (H < 10){
+        if (H < 10) {
             H = '0' + H;
         }
-        if (i < 10){
+        if (i < 10) {
             i = '0' + i;
         }
-        if (s < 10){
-            s = '0' + i;
+        if (s < 10) {
+            s = '0' + s;
         }
-        $('.datetime-value', parent).val($('.datetime-date', parent).val() + ' ' + $('.datetime-hour', parent).val() + '-' + $('.datetime-minute', parent).val());
+        $('.datetime-value', parent).val($('.datetime-date', parent).val() + ' ' + H + ':' + i + ':' + s);
     });
     if ($('.autocomplete').length) {
         $('.autocomplete').autocomplete();
@@ -73,12 +73,12 @@ function mpfFormOnLoadInit() {
 
     $(".markdown-input").each(function () {
         var interval;
-        $(this).focus(function(){
+        $(this).focus(function () {
             var _element = this;
-            interval = setInterval(function(){
+            interval = setInterval(function () {
                 markdownPreview(_element);
             }, 5000);
-        }).blur(function(){
+        }).blur(function () {
             clearInterval(interval);
             markdownPreview(this);
         });
