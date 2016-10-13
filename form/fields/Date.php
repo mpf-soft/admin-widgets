@@ -27,6 +27,7 @@
  */
 
 namespace mpf\widgets\form\fields;
+
 use mpf\web\helpers\Form;
 
 /**
@@ -34,7 +35,8 @@ use mpf\web\helpers\Form;
  *
  * @author Mirel Mitache
  */
-class Date extends \mpf\widgets\form\Field{
+class Date extends \mpf\widgets\form\Field
+{
     /**
      * Date format.
      * @var string
@@ -43,8 +45,10 @@ class Date extends \mpf\widgets\form\Field{
 
 
     //put your code here
-    function getInput() {
+    function getInput()
+    {
         $format = str_replace(['Y', 'm', 'd'], ['yy', 'mm', 'dd'], $this->format);
+        $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' ' : '') . $this->inputClass;
         return Form::get()->date($this->getName(), $this->getValue(), $format, $this->htmlOptions);
     }
 }

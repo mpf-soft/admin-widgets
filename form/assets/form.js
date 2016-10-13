@@ -49,7 +49,23 @@ function mpfFormOnLoadInit() {
 
     $('.birthday').change(function () {
         var parent = this.parentNode;
-        $('.birthday_value', parent).val($('.bday-year').val() + '-' + $('.bday-month').val() + '-' + $('.bday-day').val());
+        $('.birthday_value', parent).val($('.bday-year', parent).val() + '-' + $('.bday-month', parent).val() + '-' + $('.bday-day', parent).val());
+    });
+    $('.datetimeinput').change(function () {
+        var parent = this.parentNode;
+        var H = $('.datetime-hour', parent).val();
+        var i = $('.datetime-minute', parent).val();
+        var s = $('.datetime-second', parent).val();
+        if (H < 10){
+            H = '0' + H;
+        }
+        if (i < 10){
+            i = '0' + i;
+        }
+        if (s < 10){
+            s = '0' + i;
+        }
+        $('.datetime-value', parent).val($('.datetime-date', parent).val() + ' ' + $('.datetime-hour', parent).val() + '-' + $('.datetime-minute', parent).val());
     });
     if ($('.autocomplete').length) {
         $('.autocomplete').autocomplete();

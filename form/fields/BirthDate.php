@@ -37,7 +37,8 @@ use mpf\WebApp;
  *
  * @author Mirel Mitache
  */
-class BirthDate extends \mpf\widgets\form\Field {
+class BirthDate extends \mpf\widgets\form\Field
+{
     public $minAge = 5;
 
     public $maxAge = 140;
@@ -45,18 +46,18 @@ class BirthDate extends \mpf\widgets\form\Field {
     public $defaulAge = 18;
 
     //put your code here
-    function getInput() {
+    function getInput()
+    {
         $years = [];
         for ($i = date('Y') - $this->maxAge; $i <= date('Y') - $this->minAge; $i++) {
             $years[$i] = $i;
         }
         $value = $this->getValue();
-        WebApp::get()->debug($value);
         $year = substr($value, 0, 4);
         $monthV = substr($value, 5, 2);
         $day = substr($value, 8, 2);
         $this->htmlOptions['class'] = isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' ' : '';
-        $this->htmlOptions['class'] .= 'birthday';
+        $this->htmlOptions['class'] .= $this->inputClass . ' birthday';
 
         $htmlOptions = $this->htmlOptions;
         $htmlOptions['class'] .= ' bday-year';
@@ -65,7 +66,7 @@ class BirthDate extends \mpf\widgets\form\Field {
         $mths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         $months = [];
         foreach ($mths as $k => $month) {
-            $months[$k < 10 ? "0" . ($k + 1) : $k+1] = $this->translate($month);
+            $months[$k < 10 ? "0" . ($k + 1) : $k + 1] = $this->translate($month);
         }
         $htmlOptions = $this->htmlOptions;
         $htmlOptions['class'] .= ' bday-month';
@@ -77,10 +78,11 @@ class BirthDate extends \mpf\widgets\form\Field {
         $htmlOptions = $this->htmlOptions;
         $htmlOptions['class'] .= ' bday-day';
         $r .= Form::get()->select('', $days, $day, $htmlOptions);
-        return $r . Form::get()->hiddenInput($this->getName(), $this->getValue(), array('class' => 'birthday_value'));
+        return $r . Form::get()->hiddenInput($this->getName(), $this->getValue(), ['class' => 'birthday_value']);
     }
 
-    public function getValue() {
+    public function getValue()
+    {
         $parent = parent::getValue();
         return $parent ? $parent : date('Y-m-d', strtotime('-' . $this->defaulAge . ' years'));
     }

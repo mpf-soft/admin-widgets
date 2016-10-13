@@ -233,29 +233,26 @@
     border-radius: 3px;
 }
 
-.mform-default-wide .row .hasDatepicker {
-    margin-left: 1%;
-    clear: left;
-    border: 1px solid #999999;
-    outline: none;
-    width: 220px;
-    min-height: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
-    color: #303030;
-    border-radius: 3px;
+.mform-default-wide .row img{
+    margin-left: 20px;
 }
 
-.mform-default-wide .row .birthday {
-    margin-left: 1%;
-    border: 1px solid #999999;
-    outline: none;
+.mform-default-wide .row .hasDatepicker, .mform-default-wide .row .birthday, .mform-default-wide .row .datetimeinput{
     width: 160px;
-    min-height: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
-    color: #303030;
-    border-radius: 3px;
+    float:left;
+    clear: none;
+}
+
+.mform-default-wide .row .datetime-hour, .mform-default-wide .row .datetime-minute, .mform-default-wide .row .datetime-second{
+    max-width: 50px;
+}
+
+.mform-default-wide .row fieldset{
+    width: calc(100% - 50px);
+    margin-left: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .mform-default-wide .row textarea.input {
@@ -356,8 +353,10 @@
     display:block;
     float:left;
     padding:5px;
-    width: 96%;
-    margin-left: 1%;
+    width: calc(100% - 50px);
+    margin-left: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     overflow: auto;
     max-height: 150px;
