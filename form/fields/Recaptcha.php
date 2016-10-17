@@ -10,6 +10,7 @@ namespace mpf\widgets\form\fields;
 
 
 use mpf\web\helpers\Html;
+use mpf\WebApp;
 use mpf\widgets\form\Field;
 
 class Recaptcha extends Field
@@ -22,6 +23,8 @@ class Recaptcha extends Field
      */
     public static function checkCaptcha()
     {
+        if (defined('DEBUG_SERVER') && DEBUG_SERVER)
+            return true;
         $f = new Recaptcha();
         $key = $f->secretKey;
         $r = json_decode(self::getURLContent('https://www.google.com/recaptcha/api/siteverify', [
@@ -40,6 +43,8 @@ class Recaptcha extends Field
      */
     protected static function getURLContent($url, $post)
     {
+        if (defined('DEBUG_SERVER') && DEBUG_SERVER)
+            return "- captcha hidden on debug server -";
         $crl = curl_init();
         curl_setopt($crl, CURLOPT_URL, $url);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
