@@ -43,8 +43,6 @@ class Recaptcha extends Field
      */
     protected static function getURLContent($url, $post)
     {
-        if (defined('DEBUG_SERVER') && DEBUG_SERVER)
-            return "- captcha hidden on debug server -";
         $crl = curl_init();
         curl_setopt($crl, CURLOPT_URL, $url);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
@@ -58,11 +56,9 @@ class Recaptcha extends Field
 
     public function getInput()
     {
+        if (defined('DEBUG_SERVER') && DEBUG_SERVER)
+            return "- captcha hidden on debug server -";
         return Html::get()->scriptFile('https://www.google.com/recaptcha/api.js')
         . '<div class="g-recaptcha" data-sitekey="' . $this->siteKey . '"></div>';
-
-        $options = $this->htmlOptions;
-        $options['class'] = (isset($options['class']) ? $options['class'] . ' ' : '') . $this->inputClass;
-        return FormHelper::get()->input($this->getName(), $this->inputType, $this->getValue(), $options);
     }
 }
