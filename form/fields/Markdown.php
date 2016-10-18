@@ -16,7 +16,7 @@ use mpf\widgets\form\Field;
 
 class Markdown extends Field
 {
-    public $stripTagsFor = ['#\[code=([a-zA-Z0-9_\-]+)\](.*?)\[/code\]#sm', '#\[code\](.*?)\[/code\]#sm'];
+    public $skipMarkdownPassFor = ['#\[code=([a-zA-Z0-9_\-]+)\](.*?)\[/code\]#sm', '#\[code\](.*?)\[/code\]#sm'];
 
     public $extraFilters = [
         '#\[code=([a-zA-Z0-9_\-]+)\](.*?)\[/code\]#sm' => '<pre><code class="$1">$2</code></pre>',
@@ -61,18 +61,22 @@ class Markdown extends Field
         return Html::get()->tag("div", "", ["class" => "markdown-preview"]);
     }
 
+    protected static $preparedReplacedText = [];
+
     /**
      * @param string $t
      * @return string
      */
-    protected static function encodeStrips($t){
+    protected static function encodeStrips($t)
+    {
         $strip = new self();
-        $strip = $strip->stripTagsFor;
+        $strip = $strip->skipMarkdownPassFor;
         foreach ($strip as $regexp) {
             preg_match_all($regexp, $t, $matches);
             foreach ($matches as $match) {
                 if ($match) {
-                    $t = str_replace($match[0], htmlentities($match[0]), $t);
+                    self::$preparedReplacedText[$md = 'TOREPLACEBACK:' . md5($match[0])] = htmlentities($match[0]);
+                    $t = str_replace($match[0], $md, $t);
                 }
             }
         }
@@ -86,17 +90,9 @@ class Markdown extends Field
      */
     protected static function processTextFilters($t)
     {
+        $t = str_replace(array_keys(self::$preparedReplacedText), array_values(self::$preparedReplacedText), $t);
         $extra = new self();
-        $strip = $extra->stripTagsFor;
         $extra = $extra->extraFilters;
-        foreach ($strip as $regexp) {
-            preg_match_all($regexp, $t, $matches);
-            foreach ($matches as $match) {
-                if ($match) {
-                    $t = str_replace($match[0], strip_tags($match[0]), $t);
-                }
-            }
-        }
         foreach ($extra as $regexp => $replace) {
             $t = preg_replace($regexp, $replace, $t);
         }
