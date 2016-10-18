@@ -65,6 +65,25 @@ class Markdown extends Field
      * @param string $t
      * @return string
      */
+    protected static function encodeStrips($t){
+        $strip = new self();
+        $strip = $strip->stripTagsFor;
+        foreach ($strip as $regexp) {
+            preg_match_all($regexp, $t, $matches);
+            foreach ($matches as $match) {
+                if ($match) {
+                    $t = str_replace($match[0], htmlentities($match[0]), $t);
+                }
+            }
+        }
+
+        return $t;
+    }
+
+    /**
+     * @param string $t
+     * @return string
+     */
     protected static function processTextFilters($t)
     {
         $extra = new self();
@@ -90,7 +109,7 @@ class Markdown extends Field
      */
     public static function processText($original)
     {
-        return self::processTextFilters(\Michelf\Markdown::defaultTransform($original));
+        return self::processTextFilters(\Michelf\Markdown::defaultTransform(self::encodeStrips($original)));
     }
 
     /**
