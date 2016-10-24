@@ -75,10 +75,12 @@ class Markdown extends Field
         $strip = $strip->skipMarkdownPassFor;
         foreach ($strip as $regexp) {
             preg_match_all($regexp, $t, $matches);
-            foreach ($matches as $match) {
-                if ($match) {
-                    self::$preparedReplacedText[$md = 'TOREPLACEBACK:' . md5($match[0])] = htmlentities($match[0]);
-                    $t = str_replace($match[0], $md, $t);
+            if (count($matches[0])) {
+                foreach ($matches[0] as $match) {
+                    if ($match) {
+                        self::$preparedReplacedText[$md = 'TOREPLACEBACK:' . md5($match)] = htmlentities($match);
+                        $t = str_replace($match, $md, $t);
+                    }
                 }
             }
         }
