@@ -160,15 +160,15 @@ class BaseHandler extends TranslatableObject {
     }
 
     protected function get_post_param($id) {
-        return @$_POST[$id];
+        return isset($_POST[$id]) ? $_POST[$id] : null;
     }
 
     protected function get_query_param($id) {
-        return @$_GET[$id];
+        return isset($_GET[$id]) ? $_GET[$id] : null;
     }
 
     protected function get_server_var($id) {
-        return @$_SERVER[$id];
+        return isset($_SERVER[$id]) ? $_SERVER[$id] : null;
     }
 
     protected function get_version_param() {
@@ -1035,8 +1035,8 @@ class BaseHandler extends TranslatableObject {
      * @param string $version
      * @return string
      */
-    public function getUploadPath($fileName = '', $version = ''){
-        return $this->options['upload_dir'] . ($version?$version.'/':'') . $fileName;
+    public function getUploadPath($fileName = '', $version = '') {
+        return $this->options['upload_dir'] . ($version ? $version . '/' : '') . $fileName;
     }
 
     /**
@@ -1044,8 +1044,8 @@ class BaseHandler extends TranslatableObject {
      * @param string $version
      * @return string
      */
-    public function getDownloadURL($fileName, $version = ''){
-        return $this->options['upload_url'] . ($version?$version.'/':'') . $fileName;
+    public function getDownloadURL($fileName, $version = '') {
+        return $this->options['upload_url'] . ($version ? $version . '/' : '') . $fileName;
     }
 
     protected function get_unique_filename($file_path, $name, $size, $type, $error,
@@ -1064,7 +1064,7 @@ class BaseHandler extends TranslatableObject {
             $name = $this->upcount_name($name);
         }
         return $name;
-    }    
+    }
 
     protected function get_scaled_image_file_paths($file_name, $version) {
         $file_path = $this->getUploadPath($file_name);
