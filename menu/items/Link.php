@@ -27,6 +27,7 @@
  */
 
 namespace mpf\widgets\menu\items;
+
 use mpf\base\TranslatableObject;
 use mpf\web\helpers\Html;
 use mpf\widgets\menu\Menu;
@@ -36,13 +37,14 @@ use mpf\widgets\menu\Menu;
  *
  * @author mirel
  */
-class Link extends TranslatableObject {
+class Link extends TranslatableObject
+{
 
     /**
      * Link that will be added to item. It can be a string or an array with
      * the following:
      *  array( controller,  [action,]  [params,] [module])
-     * 
+     *
      * @var string|array
      */
     public $url = '#';
@@ -83,12 +85,19 @@ class Link extends TranslatableObject {
      */
     public $linkHtmlOptions = [];
 
+    /**
+     * Can manually check if selected;
+     * @var bool|null
+     */
+    public $isSelected;
+
 
     /**
      * Returns current item as HTML Code
      * @return string
      */
-    public function display() {
+    public function display()
+    {
         if (!$this->isVisible()) { //return nothing if it's not visible
             return "";
         }
@@ -96,7 +105,7 @@ class Link extends TranslatableObject {
         $submenu = "";
         $anySelected = false;
         if (count($this->items)) {
-            $this->htmlOptions['class'] = (isset($this->htmlOptions['class'])?$this->htmlOptions['class'].' ':'') . 'm-menu-dropdown';
+            $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' ' : '') . 'm-menu-dropdown';
             $anySelected = false;
             $anyVisible = false;
             foreach ($this->items as $item) {
@@ -129,7 +138,8 @@ class Link extends TranslatableObject {
      * Get HTML image for selected icon
      * @return string
      */
-    public function getIcon() {
+    public function getIcon()
+    {
         if (!$this->icon) {
             return "";
         }
@@ -140,18 +150,22 @@ class Link extends TranslatableObject {
      * Get string url from array|string input
      * @return string
      */
-    public function getURL() {
+    public function getURL()
+    {
         if (is_string($this->url)) {
             return $this->url;
         }
-        return \mpf\WebApp::get()->request()->createURL(isset($this->url[0]) ? $this->url[0] : 'home', isset($this->url[1]) ? $this->url[1] : null, (isset($this->url[2]) && is_array($this->url[2])) ? $this->url[2] : array(), isset($this->url[3]) ? $this->url[3] : ((isset($this->url[2]) && is_string($this->url[2]))?$this->url[2]:null));
+        return \mpf\WebApp::get()->request()->createURL(isset($this->url[0]) ? $this->url[0] : 'home', isset($this->url[1]) ? $this->url[1] : null, (isset($this->url[2]) && is_array($this->url[2])) ? $this->url[2] : array(), isset($this->url[3]) ? $this->url[3] : ((isset($this->url[2]) && is_string($this->url[2])) ? $this->url[2] : null));
     }
 
     /**
      * Check if this is the current page.
      * @return boolean
      */
-    public function isSelected() {
+    public function isSelected()
+    {
+        if (!is_null($this->isSelected))
+            return $this->isSelected;
         if (is_string($this->url) && $this->url == \mpf\WebApp::get()->request()->getCurrentURL()) {
             return true;
         } elseif (is_array($this->url)) {
@@ -175,7 +189,8 @@ class Link extends TranslatableObject {
      * Get name of the link module;
      * @return string
      */
-    protected function getModule() {
+    protected function getModule()
+    {
         $module = \mpf\WebApp::get()->request()->getModule();
         if (isset($this->url[2]) && !is_array($this->url[2])) { // is module
             $module = $this->url[2];
@@ -189,19 +204,20 @@ class Link extends TranslatableObject {
      * Check if current item is visible or not.
      * @return boolean
      */
-    public function isVisible() {
+    public function isVisible()
+    {
         if ((!is_array($this->url)) || (!$this->visible)) { // if it's not array, or not visible then just return visible value, no need to check anything
             return $this->visible;
         }
         $controller = isset($this->url[0]) ? $this->url[0] : 'home';
         $action = isset($this->url[1]) ? $this->url[1] : null;
-        if (false !== strpos($controller, '/')){
+        if (false !== strpos($controller, '/')) {
             list ($module, $controller) = explode('/', $controller, 2);
-            if ('..' == $module){
+            if ('..' == $module) {
                 $module = '/';
             }
         } else {
-            $module = (isset($this->url[2]) && is_string($this->url[2]))?$this->url[2]:(isset($this->url[3])?$this->url[3]:null);
+            $module = (isset($this->url[2]) && is_string($this->url[2])) ? $this->url[2] : (isset($this->url[3]) ? $this->url[3] : null);
         }
         if (\mpf\WebApp::get()->accessMap && (!\mpf\WebApp::get()->accessMap->canAccess($controller, $action, $module))) {
             return false;

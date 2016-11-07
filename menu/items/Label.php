@@ -33,7 +33,8 @@ namespace mpf\widgets\menu\items;
  *
  * @author mirel
  */
-class Label extends \mpf\base\TranslatableObject {
+class Label extends \mpf\base\TranslatableObject
+{
 
     /**
      * Label to be used for link. It will be automatically translated
@@ -72,17 +73,24 @@ class Label extends \mpf\base\TranslatableObject {
     public $labelHtmlOptions = [];
 
     /**
+     * Can manually check if selected;
+     * @var bool|null
+     */
+    public $isSelected;
+
+    /**
      * Returns current item as HTML Code
      * @return string
      */
-    public function display() {
+    public function display()
+    {
         if (!$this->isVisible())
             return "";
 
         $content = \mpf\web\helpers\Html::get()->tag('span', $this->getIcon() . $this->translate($this->label), $this->labelHtmlOptions);
         $submenu = "";
         if (count($this->items)) {
-            $this->htmlOptions['class'] = (isset($this->htmlOptions['class'])?$this->htmlOptions['class'].' ':'') . 'm-menu-dropdown';
+            $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' ' : '') . 'm-menu-dropdown';
             $anySelected = false;
             $anyVisible = false;
             foreach ($this->items as $item) {
@@ -106,7 +114,8 @@ class Label extends \mpf\base\TranslatableObject {
         return \mpf\web\helpers\Html::get()->tag('li', $content . $submenu, $this->htmlOptions);
     }
 
-    public function getIcon() {
+    public function getIcon()
+    {
         if (!$this->icon)
             return "";
         return \mpf\web\helpers\Html::get()->image($this->icon, $this->translate($this->label));
@@ -116,11 +125,13 @@ class Label extends \mpf\base\TranslatableObject {
      * Labels can't be selected as they are not pages;
      * @return boolean
      */
-    public function isSelected() {
-        return false;
+    public function isSelected()
+    {
+        return is_null($this->isSelected) ? false : $this->isSelected;
     }
 
-    public function isVisible() {
+    public function isVisible()
+    {
         return $this->visible;
     }
 
