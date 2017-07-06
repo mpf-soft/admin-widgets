@@ -65,9 +65,8 @@ class Autocomplete extends Field{
         $options['autc_for'] = str_replace(['[', ']'], '__', $this->getName());
         $options['autc_minletters'] = $this->minLettersToSearch;
         $options['autc_insert'] = ($this->allowNewValues?'1':'0');
+        $this->ajaxExtraParams[WebApp::get()->request()->getCsrfKey()] = WebApp::get()->request()->getCsrfValue();
         $options['autc_extraparams'] = json_encode($this->ajaxExtraParams);
-        $options['autc_csrf_key'] = WebApp::get()->request()->getCsrfKey();
-        $options['autc_csrf_value'] = WebApp::get()->request()->getCsrfValue();
         $opts = [];
         foreach ($this->options as $word){
             $opts[] = "<li>$word</li>";

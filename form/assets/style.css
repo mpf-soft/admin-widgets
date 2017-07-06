@@ -58,18 +58,19 @@
     max-height: 200px;
 }
 
-.mform .form-autocomplete-list ul li {
+.mform .form-autocomplete-list li {
     display: block;
     line-height: 30px;
     padding: 0 5px;
     cursor: pointer;
+    list-style: none;
 }
 
-.mform .form-autocomplete-list ul li.hidden {
+.mform .form-autocomplete-list li.hidden {
     display: none;
 }
 
-.mform .form-autocomplete-list ul li.selected {
+.mform .form-autocomplete-list li.selected {
     background: #eaeaea;
 }
 
