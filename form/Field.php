@@ -39,7 +39,7 @@ abstract class Field extends \mpf\base\TranslatableObject {
 
     /**
      * List of options to be used as properties for html input tag.
-     * @var string[string]
+     * @var string[]
      */
     public $htmlOptions = array();
 

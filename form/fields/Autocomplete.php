@@ -11,6 +11,7 @@ namespace mpf\widgets\form\fields;
 
 use mpf\web\helpers\Form;
 use mpf\web\helpers\Html;
+use mpf\WebApp;
 use mpf\widgets\form\Field;
 
 class Autocomplete extends Field{
@@ -22,13 +23,20 @@ class Autocomplete extends Field{
     public $ajaxUpdate = false;
     /**
      * URL to be used by the ajax request to get the options; Result must be a json, same structure as optionsJSON;
+     * It will receive a post "text" option as a parameter for search plus any additional parameters specified;
      * @var string
      */
     public $ajaxURL = "";
 
     /**
+     * An optional list of parameters to send to ajax search;
+     * @var array
+     */
+    public $ajaxExtraParams = [];
+
+    /**
      * A JSON encoded string that contains a list with all possible options( used if ajaxUpdate is false )
-     * @var string
+     * @var string[]
      */
     public $options = [];
 
@@ -57,6 +65,9 @@ class Autocomplete extends Field{
         $options['autc_for'] = str_replace(['[', ']'], '__', $this->getName());
         $options['autc_minletters'] = $this->minLettersToSearch;
         $options['autc_insert'] = ($this->allowNewValues?'1':'0');
+        $options['autc_extraparams'] = json_encode($this->ajaxExtraParams);
+        $options['autc_csrf_key'] = WebApp::get()->request()->getCsrfKey();
+        $options['autc_csrf_value'] = WebApp::get()->request()->getCsrfValue();
         $opts = [];
         foreach ($this->options as $word){
             $opts[] = "<li>$word</li>";
