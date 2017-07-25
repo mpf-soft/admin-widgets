@@ -22,6 +22,9 @@ var MPFForm_AutoComplete = {
             setTimeout(function(){
                 $('.form-autocomplete-list', __this.parentNode).fadeOut();
             }, 100);
+        }).bind('input propertychange', function(){
+            $('#' + $(this).attr('autc_for')).val($(this).val());
+            $(this).keyup();
         }).keyup(function () {
             if (_self.selectionWasMade || _self.lastAjaxSearchedText == this.value){
                 return true;
@@ -29,7 +32,7 @@ var MPFForm_AutoComplete = {
             if ($(this).attr('autc_ajax') == '1') {
                 if ($(this).val().length >= $(this).attr('autc_minletters')) {
                     _self.displayList(this, 'ajax search');
-                    _self.ajaxSearch($(this).val(), $(this).attr('autc_url'), JSON.parse($(this).attr('autc_extraparams') + ''), $('.form-autocomplete-list', this.parentNode));
+                    _self.ajaxSearch($(this).val(), $(this).attr('autc_url'), JSON.parse($(this).attr('autc_extraparams') + ''), $('.form-autocomplete-list', this.parentNode), element);
                 } else if ($('.form-autocomplete-list', this.parentNode).is(':visible')) {
                     $('.form-autocomplete-list', this.parentNode).fadeOut();
                 }
@@ -79,7 +82,7 @@ var MPFForm_AutoComplete = {
                 _self.selectionWasMade = false;
             }, 200);
             return false;
-        })
+        });
     },
     checkScroll: function (list) {
         if ($('li.selected', list).position().top + $('list.selected', list).height() > $(list).height()) {
@@ -161,7 +164,7 @@ var MPFForm_AutoComplete = {
             }
         })
     },
-    ajaxSearch: function (text, url, extraOptions, htmlListContainer) {
+    ajaxSearch: function (text, url, extraOptions, htmlListContainer, element) {
         var _self = this;
         text = text.trim();
         _self.lastTextOnTheInput = text;
@@ -177,6 +180,22 @@ var MPFForm_AutoComplete = {
                     $.each(result, function (index, value) {
                         htmlListContainer.append("<li>" + value + "</li>");
                     });
+
+                    $('li', htmlListContainer).hover(function () {
+                        $('li', this.parentNode).removeClass('selected');
+                        $(this).addClass('selected');
+                    }).click(function () {
+                        $(element).val($(this).text());
+                        console.log('Click on: ' + $(this).text());
+                        _self.selectionWasMade = true;
+                        $('#' + $(element).attr('autc_for')).val($(this).text());
+                        $('.form-autocomplete-list', element.parentNode).fadeOut();
+                        setTimeout(function(){
+                            _self.selectionWasMade = false;
+                        }, 200);
+                        return false;
+                    });
+
                 }, 'json');
         }, 200);
 
