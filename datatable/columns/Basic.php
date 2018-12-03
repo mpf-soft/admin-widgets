@@ -28,6 +28,7 @@
 
 namespace mpf\widgets\datatable\columns;
 
+use mpf\base\MPFObject;
 use mpf\web\AssetsPublisher;
 use mpf\web\helpers\Form;
 use mpf\web\helpers\Html;
@@ -38,7 +39,7 @@ use mpf\widgets\datatable\Table;
  *
  * @author mirel
  */
-class Basic extends \mpf\base\Object {
+class Basic extends MPFObject {
 
     /**
      * Name of the model. Sent by Table widget.
