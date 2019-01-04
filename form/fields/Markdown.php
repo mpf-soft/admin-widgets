@@ -16,14 +16,15 @@ use mpf\widgets\form\Field;
 
 class Markdown extends Field
 {
-    public $skipMarkdownPassFor = ['#\[code=([a-zA-Z0-9_\-]+)\](.*?)\[/code\]#sm', '#\[code\](.*?)\[/code\]#sm', '#\[php\](.*?)\[/php\]#sm', '#\[javascript\](.*?)\[/javascript\]#sm'];
+    public $skipMarkdownPassFor = ['#\[code=([a-zA-Z0-9_\-]+)\](.*?)\[/code\]#sm', '#\[code\](.*?)\[/code\]#sm', '#\[php\](.*?)\[/php\]#sm', '#\[javascript\](.*?)\[/javascript\]#sm', '#\[youtube\](.*?)\[/youtube\]#sm'];
 
     public $extraFilters = [
         '#\[code=([a-zA-Z0-9_\-]+)\](.*?)\[/code\]#sm' => '<pre><code class="$1">$2</code></pre>',
         '#\[code\](.*?)\[/code\]#sm' => '<pre><code>$1</code></pre>',
         '#\[php\](.*?)\[/php\]#sm' => '<pre><code class="php">$1</code></pre>',
         '#\[javascript\](.*?)\[/javascript\]#sm' => '<pre><code class="javascript">$1</code></pre>',
-        '#\[color=([\#a-zA-Z0-9_\-]+)\](.*?)\[/color\]#sm' => '<span style="color:$1;">$2</span>'
+        '#\[color=([\#a-zA-Z0-9_\-]+)\](.*?)\[/color\]#sm' => '<span style="color:$1;">$2</span>',
+        '#\[youtube\](.*?)\[/youtube\]#sm' => '<iframe class="youtube-iframe" src="https://www.youtube.com/embed/$1" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
     ];
 
     public $hintText = "This input uses Markdown syntax. <a href='https://daringfireball.net/projects/markdown/syntax' target='_blank'>Click For Details</a>";
