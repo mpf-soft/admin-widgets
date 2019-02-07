@@ -81,6 +81,12 @@ class Table extends \mpf\base\Widget {
      */
     public $pagesView;
 
+    /**
+     * Show or hide filters column
+     * @var bool
+     */
+    public $showFilters = true;
+
 // ========================== Style Specific Options ======================
 
     /**

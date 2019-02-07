@@ -39,7 +39,8 @@ use mpf\widgets\datatable\Table;
  *
  * @author mirel
  */
-class Basic extends MPFObject {
+class Basic extends MPFObject
+{
 
     /**
      * Name of the model. Sent by Table widget.
@@ -83,6 +84,12 @@ class Basic extends MPFObject {
      * @var string[]
      */
     public $filterHtmlOptions = array();
+
+    /**
+     * Used to add a global class for data, header and filters rows
+     * @var string
+     */
+    public $htmlClass = '';
 
     /**
      * Show or hide current column
@@ -130,7 +137,8 @@ class Basic extends MPFObject {
      * Return true if column is visible, false if not.
      * @return boolean
      */
-    public function isVisible() {
+    public function isVisible()
+    {
         return $this->visible;
     }
 
@@ -140,7 +148,8 @@ class Basic extends MPFObject {
      * there it will generate one using the name of the column.
      * @return string
      */
-    public function getLabel() {
+    public function getLabel()
+    {
         if ($this->label)
             return $this->label;
         return $this->dataProvider->getLabel($this->name);
@@ -152,14 +161,15 @@ class Basic extends MPFObject {
      * @param Table $table
      * @return string
      */
-    public function getValue($row, Table $table) {
+    public function getValue($row, Table $table)
+    {
         if (!$this->value)
             return $row->{$this->name};
         if (is_string($this->value)) {
             $res = '';
             eval("\$res = {$this->value};");
             return $res;
-        } elseif (is_callable($this->value)){
+        } elseif (is_callable($this->value)) {
             return call_user_func($this->value, $row, $table);
         }
     }
@@ -168,7 +178,8 @@ class Basic extends MPFObject {
      * Get HTML table filter for selected column;
      * @return string
      */
-    public function getFilter() {
+    public function getFilter()
+    {
         if (false === $this->filter) {
             return '';
         }
@@ -182,8 +193,12 @@ class Basic extends MPFObject {
      * Return html options for header;
      * @return string
      */
-    public function getHeaderHtmlOptions() {
+    public function getHeaderHtmlOptions()
+    {
         $r = '';
+        if ($this->htmlClass) {
+            $this->headerHtmlOptions['class'] = (isset($this->headerHtmlOptions['class']) ? $this->headerHtmlOptions['class'] . ' ' : '') . $this->htmlClass;
+        }
         foreach ($this->headerHtmlOptions as $k => $v)
             $r .= "$k = '$v' ";
         return $r;
@@ -193,8 +208,12 @@ class Basic extends MPFObject {
      * Return html options for filter;
      * @return string
      */
-    public function getFilterHtmlOptions() {
+    public function getFilterHtmlOptions()
+    {
         $r = '';
+        if ($this->htmlClass) {
+            $this->filterHtmlOptions['class'] = (isset($this->filterHtmlOptions['class']) ? $this->filterHtmlOptions['class'] . ' ' : '') . $this->htmlClass;
+        }
         foreach ($this->filterHtmlOptions as $k => $v)
             $r .= "$k = '$v' ";
         return $r;
@@ -204,8 +223,12 @@ class Basic extends MPFObject {
      * Return html options for cell;
      * @return string
      */
-    public function getHtmlOptions() {
+    public function getHtmlOptions()
+    {
         $r = '';
+        if ($this->htmlClass) {
+            $this->htmlOptions['class'] = (isset($this->htmlOptions['class']) ? $this->htmlOptions['class'] . ' ' : '') . $this->htmlClass;
+        }
         foreach ($this->htmlOptions as $k => $v)
             $r .= "$k = '$v' ";
         return $r;
@@ -216,7 +239,8 @@ class Basic extends MPFObject {
      * @param Table $table
      * @return string
      */
-    public function getHeaderCode(\mpf\widgets\datatable\Table $table) {
+    public function getHeaderCode(\mpf\widgets\datatable\Table $table)
+    {
         $label = $this->getLabel();
         if (!$this->order) {
             return $label;

@@ -24,18 +24,20 @@
             <?php } ?>
         </tr>
         <?php $visibleColumns = 0; ?>
-        <tr class="m-datatable-filters">
-            <?php if ($this->multiSelect && count($this->multiSelectActions)) { ?>
-                <td>&nbsp;</td><?php $visibleColumns++; ?>
-            <?php } ?>
-            <?= \mpf\web\helpers\Form::get()->openForm(array('method' => 'GET', 'style' => 'width:auto;height:auto;min-height:0;margin:0;padding:0;border:none;')); ?>
-            <?php foreach ($this->columnObjects as $name => $column) { ?>
-                <?php if ($column->isVisible()) { ?> <?php $visibleColumns++; ?>
-                    <td <?= $column->getFilterHtmlOptions(); ?>><?= $column->getFilter(); ?></td>
+        <?php if ($this->showFilters) { ?>
+            <tr class="m-datatable-filters">
+                <?php if ($this->multiSelect && count($this->multiSelectActions)) { ?>
+                    <td>&nbsp;</td><?php $visibleColumns++; ?>
                 <?php } ?>
-            <?php } ?>
-            <?= \mpf\web\helpers\Form::get()->closeForm(); ?>
-        </tr>
+                <?= \mpf\web\helpers\Form::get()->openForm(array('method' => 'GET', 'style' => 'width:auto;height:auto;min-height:0;margin:0;padding:0;border:none;')); ?>
+                <?php foreach ($this->columnObjects as $name => $column) { ?>
+                    <?php if ($column->isVisible()) { ?><?php $visibleColumns++; ?>
+                        <td <?= $column->getFilterHtmlOptions(); ?>><?= $column->getFilter(); ?></td>
+                    <?php } ?>
+                <?php } ?>
+                <?= \mpf\web\helpers\Form::get()->closeForm(); ?>
+            </tr>
+        <?php } ?>
         <?php if (count($this->dataProvider->getData())) { ?>
             <?php foreach ($this->dataProvider->getData() as $row) { ?>
                 <tr class="m-datatable-row <?= $this->getRowClass($row) ?>">
