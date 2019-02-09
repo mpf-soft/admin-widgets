@@ -43,7 +43,7 @@ class BirthDate extends \mpf\widgets\form\Field
 
     public $maxAge = 140;
 
-    public $defaulAge = 18;
+    public $defaultAge = 18;
 
     //put your code here
     function getInput()
@@ -84,6 +84,6 @@ class BirthDate extends \mpf\widgets\form\Field
     public function getValue()
     {
         $parent = parent::getValue();
-        return $parent ? $parent : date('Y-m-d', strtotime('-' . $this->defaulAge . ' years'));
+        return $parent ? $parent : date('Y-m-d', strtotime('-' . $this->defaultAge . ' years'));
     }
 }
