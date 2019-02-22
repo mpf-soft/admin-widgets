@@ -179,7 +179,7 @@ class InlineEdit extends Basic {
                 eval("\$res = {$this->value};");
             }
         } else {
-            $res = ('select' == $this->type) ? ((isset($this->options[$row->{$this->name}]) ? $this->options[$row->{$this->name}] : $this->noValueDisplay)) : $row->{$this->name};
+            $res = ('select' == $this->type) ? ((isset($this->options[$row->{$this->name}]) ? $this->options[$row->{$this->name}] : $this->noValueDisplay)) : ($row->{$this->name}?:$this->noValueDisplay);
         }
         return $this->canEdit ? "<{$this->linkElement} class='inline-edit-column-edit-link' href='#'>" . $res . "</{$this->linkElement}>" . $this->getForm($row, $table) : $res;
 
