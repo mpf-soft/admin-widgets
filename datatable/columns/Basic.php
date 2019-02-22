@@ -186,6 +186,11 @@ class Basic extends MPFObject
         if (is_array($this->filter)) {
             return Form::get()->select($this->dataProvider->filtersKey . '[' . $this->name . ']', $this->filter, null, array(), '');
         }
+        
+        if (is_string($this->filter) && (strlen($this->filter) > 10)){
+            return $this->filter;
+        }
+        
         return Form::get()->input($this->dataProvider->filtersKey . '[' . $this->name . ']');
     }
 
