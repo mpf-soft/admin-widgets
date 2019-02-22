@@ -131,7 +131,12 @@ class InlineEdit extends Basic {
     public $canEdit = true;
 
     /**
-     * Will create an ajax request. Must return "ok" if all went all or the message to be displayed in case of error;
+     * Will create an ajax request. Must return a json with the following keys:
+     * [
+     *   'status' => 'ok', // ok if save done;  'error' if there were problems
+     *   'message' => '', // optional - just in case of error, a message to display
+     *   'value' => '', // the new value to display
+     * ]
      * @var bool
      */
     public $ajax = false;
